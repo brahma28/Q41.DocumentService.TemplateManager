@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>@ViewBag.Title - Dokument servis - Template Manager</title>
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width" />
+        @Scripts.Render("~/bundles/modernizr")
+        <!-- CSS dependencies -->
+        @*<link rel="stylesheet" type="text/css" href="bootstrap.min.css">*@
+        <link rel="stylesheet" type="text/css" href="~/Content/bootstrap.min.css"/>
+        <!-- JS dependencies -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="~/Scripts/bootstrap.min.js"></script>
+        <!-- bootbox code -->
+        <script src="~/Scripts/bootbox.min.js"></script>
+        @Styles.Render("~/Content/css")
+        <link href="~/Content/StyleApis.css" rel="stylesheet" />
+
+    </head>
+    <body>
+        <header>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p class="site-title">@Html.ActionLink(".", "Index", "Home")
+                    <img src="~/Images/pocetna.png" style="height:30px; width:auto; "/></p>
+                </div>
+                <div class="float-right">
+                    <section id="login">
+                        @Html.Partial("_LoginPartial")
+                    </section>
+                    <nav>
+                        <ul id="menu">
+                            <li>@Html.ActionLink("PREDLOŠCI", "Index", "Default1")</li>
+                            <li>@Html.ActionLink("PROCEDURE", "Index", "Procedura")</li>
+                            <li>@Html.ActionLink("MAPIRANJE", "Index", "Mapiranje")</li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <div id="body">
+            @RenderSection("featured", required: false)
+            <section class="content-wrapper main-content clear-fix">
+                @RenderBody()
+            </section>
+        </div>
+        <footer>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p>&copy; @DateTime.Now.Year - Dokument servis - Template Manager</p>
+                </div>
+            </div>
+        </footer>
+
+        @Scripts.Render("~/bundles/jquery")
+        @RenderSection("scripts", required: false)
+
+    </body>
+</html>

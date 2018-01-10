@@ -1,0 +1,86 @@
+﻿@model Q41.DocumentService.TemplateManager.Models.Templates
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Templates</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TemplateId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TemplateId)
+            @Html.ValidationMessageFor(model => model.TemplateId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Identifier)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Identifier)
+            @Html.ValidationMessageFor(model => model.Identifier)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Path)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Path)
+            @Html.ValidationMessageFor(model => model.Path)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TemplateGroupId, "TemplateGroups")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("TemplateGroupId", String.Empty)
+            @Html.ValidationMessageFor(model => model.TemplateGroupId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Paramaters)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Paramaters)
+            @Html.ValidationMessageFor(model => model.Paramaters)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div style="color:white; ">
+    @Html.ActionLink("Povratak na listu", "Index")
+</div>
+
+@section scripts{
+    <script>
+
+        $(document).ready(function () {
+            $('#example').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Croatian.json"
+                }
+            });
+
+        });
+    </script>
+}

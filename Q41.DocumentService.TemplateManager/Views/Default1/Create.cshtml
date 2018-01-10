@@ -1,0 +1,314 @@
+﻿@model Q41.DocumentService.TemplateManager.Models.Templates
+
+@{
+    ViewBag.Title = "DODAJ PREDLOŽAK";
+}
+@Html.Hidden("RedirectTo", Url.Action("Create", "Default1"))
+<h2><div style="color:white; ">DODAJ PREDLOŽAK @ViewBag.poruka</div></h2>
+<br />
+@using (Html.BeginForm("Create",
+                                    "Default1",
+                                    FormMethod.Post,
+                                    new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    
+    <input type="hidden" name="TemplateId" id="TemplateId" value="@ViewBag.TemplateId" />
+    <input type="hidden" name="Name" id="Name" value="@ViewBag.Name" />
+    <input type="hidden" name="Path" id="Path" value="@ViewBag.Path" />
+    @*<input type="hidden" name="ProcedureCallId" id="ProcedureCallId" value="@ViewBag.ProcedureCallId" />*@
+    @*@Html.HiddenFor(m => m.TemplateGroupId)*@
+    
+    <fieldset>
+        <legend>PREDLOŠCI</legend>
+        <div id="l1" class="tabela-apis-bijela" >
+            <div class="pod-tabela-apis-bijela" >
+                <table>
+                    <thead>
+                        <tr>
+                            <td><h3>Procedura:</h3></td>
+                            <td><h3>Predložak:</h3></td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+
+                            <td>
+                                GRUPA: 
+                                @Html.DropDownListFor(m => m.TemplateGroupId, new SelectList(ViewBag.templateGroups, "TemplateGroupId", "Name"))
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @*@Html.DropDownList("ProcedureCallId", new SelectList(ViewBag.procedure, "ProcedureCallId", "ProcedureName"))*@
+                                @Html.DropDownListFor(m => m.ProcedureCallId, new SelectList(ViewBag.procedure, "ProcedureCallId", "ProcedureName"))
+                            </td>
+                            <td>
+                                <div class="editor-field" id="txtPutanja">
+                                    <input type="file" name="postedFile" id="file" style="width:450px; " />
+                                    @*@Html.TextBoxFor(m => m.File, new { type = "file", style = "width:450px; ", id = "file", name = "postedFile" })*@
+
+                                </div>
+                            </td>
+                            <td>
+                                <input type="submit" value="UČITAJ PREDLOŽAK/PROC." class="btn btn-default btn-sm  gumb-brisanje-apis" name="Command" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div id="porukaStora">
+                                    @ViewBag.MessageStora
+                                </div>
+                            </td>
+                            <td>
+                                <div id="porukaPredlozak">
+                                    @ViewBag.Message
+                                </div>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </fieldset>
+
+
+    <table style="width: 100%; vertical-align:top; ">
+        <tr style="width: 100%; ">
+            <td>
+                <div id="proc" class="tabela-apis-bijela">
+                    <div class="pod-tabela-apis-bijela" style="height: 544px;">
+                        @Html.Partial("PartialParametriProcedure")
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div id="pred" class="tabela-apis-bijela">
+                    <div class=" pod-tabela-apis-bijela" style="height: 544px;">
+                        @Html.Partial("PartialParametriPredloska")
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div id="mapi" class="tabela-apis-bijela">
+                    <div id="mapiafter" class="pod-tabela-apis-bijela" style="height: 544px !important; ">
+                        @Html.Partial("PartialParametriMapiranja")
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align:center; ">
+                @*<button type="button" class="btn btn-default" onclick="onClickSinkroniziraj(16,100)">SINKRONIZIRAJ</button>*@  
+                <input id="sinkroniziraj" class="btn btn-primary btn-sm " type="submit" value="SINKRONIZIRAJ" name="Command" />
+                @*<button type="button" class="btn btn-default" id="idbuttona">SINKRO</button>*@                                
+            </td>
+            <td>
+                <button type="button" class="btn btn-default" onclick="onClickPovezi()">POVEŽI ODABRANI PAR</button>
+            </td>
+            <td>
+                @*<button type="button" class="btn btn-default" onclick="onClickSpremi()">SPREMI</button>*@
+                <input type="submit" value="SPREMI" class="btn btn-default btn-sm  gumb-brisanje-apis" name="Command" />
+            </td>
+        </tr>
+    </table>
+}
+
+
+<br />
+        <div style="color:white; ">
+            @Html.ActionLink("Povratak na listu", "Index")
+        </div>
+
+        
+
+@section scripts{
+@Scripts.Render("~/bundles/jqueryval")
+<script>
+
+    function onClickSinkroniziraj(procId, tempId) {
+        var ddl = document.getElementById("ProcedureCallId");
+        var selectedValue = ddl.options[ddl.selectedIndex].value;
+        var tempId = $('#templateId').text();
+
+        $.ajaxSubmit({
+            type: 'POST',
+            url: '@Url.Action("Sinkro", "Default1", new {})',
+            data: {},
+            dataType: "html",
+        }).done(function (ret) {
+            window.location.href = ret.lnk;
+            // ponovni poziv partial view-a
+            //$("#PartialParametriMapiranja").load('/Default1/PartialParametriMapiranja', function (html) { });
+        });
+    };
+    function onClickPovezi() {
+
+        var storaId = $("#ProcedureCallId").val();
+        var templateId = $('#TemplateId').val();
+        var recordToDelete = $('input[name="poljeProcedure"]:checked').attr("id");
+        var recordToDelete2 = $('input[name="poljePredloska"]:checked').attr("id");
+
+        //window.location.href = url;
+        debugger; 
+            var o = { storaId: storaId, templateId: templateId, recordToDelete: recordToDelete, recordToDelete2: recordToDelete2 };
+            var json = JSON.stringify(o);
+            var button = $(this);
+            var url = $("#RedirectTo").val();
+
+            bootbox.confirm("Da li ste sigurni da želite povezati?", function (result) {
+                if (result) {
+                    var url = '@Url.Action("Povezi", "Default1", new { parametri = "__sve__" })';
+                    window.location.href = url.replace('__sve__', json);
+                    console.log("Pokidano vezanje!");
+                }
+                else {
+                    $.post("/Default1/Edit", { id: recordToDelete });
+                    console.log("Nije pokidano vezanje.");
+                }
+
+            });
+
+        
+    };
+    function onClickPoveziOld() {
+        //alert(procId, tempId, parSto, parPre);
+        var parTemp = $('input[name="poljePredloska"]:checked').attr("id");
+        var parStore = $('input[name="poljeProcedure"]:checked').attr("id");
+        var tempId = $('#TemplateId').val();
+        var storaId = $("#ProcedureCallId").val();
+        var kombinacija = parTemp + "___" + parStore + "___" + storaId + "___" + tempId;
+        //alert(kombinacija);
+
+        var url = $("#RedirectTo").val();
+
+        var url = '@Url.Action("Povezi", "Default1", new { parametri = "__parametri__" })';
+        url = url.replace('__parametri__', kombinacija);
+
+        window.location.href = url;
+
+
+        @*$.ajax({
+            type: 'POST',
+            url: '@Url.Action("Povezi", "Default1", new {})',
+            data: { procedureCallId: selectedValue, templateId: tempId, parametarStore: parStore, parametarPredloska: parTemp },
+            dataType: "html",
+        }).done(function (ret) {
+            window.location.href = ret.lnk;
+        });*@
+    };
+
+
+    function onUcitajPedlozakClick() {
+        var x = document.getElementById("file").value;
+        var link = document.getElementById("file").files[0].name;
+        alert(link);
+        if (link = "") {
+            alert("Niste odabrali predložak!");
+        }
+        else {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("UcitajPredlozak", "Default1", new {})',
+                data: { putanja: link },
+                dataType: "html",
+            }).done(function (ret) {
+                window.location.href = ret.lnk;
+            });
+        };
+    };
+
+    function onClickSpremi() {
+        //var ddl = document.getElementById("ProcedureCallId");
+        //var selectedValue = ddl.options[ddl.selectedIndex].value;
+        //var tempId = $('#templateId').text();
+        //$("#PartialParametriMapiranja").load('/Default1/PartialParametriMapiranja', function (html) { });
+
+        @*$.post('@Url.Action("PartialParametriMapiranja", "Default1")').always(function(){
+            $('.target').load('/Default1/PartialParametriMapiranja');
+        });*@
+
+        $.ajax({
+            type: "POST",
+            data: JSON.stringify(),
+            dataType: "html",
+            contentType: "application/json",
+            url: "/Default1/Spremi",
+            success: function (result) {
+                //alert(result);
+                $('#map').html(result);
+                $('#map').show();
+                //$('#mapi').load('/home/page/111 #mapiafter');
+            }
+        });
+
+    };
+
+    $(document).ready(function () {
+        $('#predlozak').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Croatian.json"
+            }
+        });
+        $('#procedura').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Croatian.json"
+            }
+        });
+        $('#mapiranje').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Croatian.json"
+            }
+        });
+
+        $("#idbuttona").on("click", ajaxFormSubmit);
+
+    });
+
+    var ajaxFormSubmit = function () {
+        //alert("ajaxFormSubmit");
+        var tempId = document.getElementById("TemplateId").value;
+        var procId = document.getElementById("ProcedureCallId").value;
+        var tedsId = document.getElementById("TemplateDataSourceId").value;
+        var data = { ProcedureCallId: procId, TemplateId: tempId, TemplateDataSourceId: tedsId }; //pokupis podatke koje zelis submitati
+        $.ajax({
+            url: "/Default1/Create/",
+            data: data,
+            method: "POST",
+            success: function () {
+                // …
+            },
+            error: function () {
+                // …
+            }
+        });
+    };
+
+    // klik na id="file" briše sadržaj diva id="porukaPredlozak"
+    $('#file').click(function () {
+        $('#porukaPredlozak').attr('value', '');
+    });
+
+
+</script>
+}
+
+@*@using Microsoft.Web.Mvc;
+@{
+    var fileName = "";
+    if (IsPost)
+    {
+        var fileSavePath = "";
+        var uploadedFile = Request.Files[0];
+        fileName = Path.GetFileName(uploadedFile.FileName);
+        fileSavePath = Server.MapPath("~/App_Data/UploadedFiles/" +
+          fileName);
+        uploadedFile.SaveAs(fileSavePath);
+    }
+}*@

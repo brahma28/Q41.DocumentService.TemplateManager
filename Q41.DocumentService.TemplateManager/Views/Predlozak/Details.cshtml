@@ -1,0 +1,71 @@
+﻿@model Q41.DocumentService.TemplateManager.Models.Templates
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Templates</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TemplateId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TemplateId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Identifier)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Identifier)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Path)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Path)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TemplateGroups.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TemplateGroups.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Paramaters)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Paramaters)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Povratak na listu", "Index")
+</p>
+
+@section scripts{
+    <script>
+
+        $(document).ready(function () {
+            $('#example').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Croatian.json"
+                }
+            });
+
+        });
+    </script>
+}

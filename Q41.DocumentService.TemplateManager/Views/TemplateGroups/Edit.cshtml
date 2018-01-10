@@ -1,0 +1,52 @@
+﻿@model Q41.DocumentService.TemplateManager.Models.TemplateGroups
+
+@{
+    ViewBag.Title = "Uređivanje grupe";
+}
+
+<h2>Uređivanje grupe</h2>
+<hr />
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>TemplateGroups</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TemplateGroupId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TemplateGroupId)
+            @Html.ValidationMessageFor(model => model.TemplateGroupId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ParentGroupId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ParentGroupId)
+            @Html.ValidationMessageFor(model => model.ParentGroupId)
+        </div>
+
+        <p>
+            <input type="submit" value="SPREMI" />
+        </p>
+    </fieldset>
+}
+
+<div style="color:white; ">
+    @Html.ActionLink("Povratak na listu grupa", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

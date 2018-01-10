@@ -1,0 +1,89 @@
+﻿@model Q41.DocumentService.TemplateManager.Models.ProcedureCalls
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>ProcedureCalls</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ProcedureCallId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ProcedureCallId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SchemaName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SchemaName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.PackageName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PackageName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ProcedureName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ProcedureName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ConnectionStrings.Value)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ConnectionStrings.Value)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DbmsType)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DbmsType)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Paramaters)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Paramaters)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ResultFields)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ResultFields)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Povratak na listu", "Index")
+    </p>
+}
+
+@section scripts{
+    <script>
+
+        $(document).ready(function () {
+            $('#example').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Croatian.json"
+                }
+            });
+
+        });
+    </script>
+}

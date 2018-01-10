@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "PartialParametriMapiranja";
+}
+<div id="map">
+    <h2>LISTA PAROVA</h2>
+    <hr />
+    <table id="mapiranje" class="display" cellspacing="0">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Procedura</th>
+                <th>Predložak</th>
+                @*<th>Opis</th>*@
+                @*<th>Primjer</th>*@
+                @*<th></th>*@
+            </tr>
+        </thead>
+        <tbody>
+
+            @{int counter = 0; }
+            @foreach (Q41.DocumentService.TemplateManager.Models.TemplateFieldBinding item in ViewBag.BindingFields)
+            {
+                counter++;
+                <tr>
+                    <td>
+                        @counter.ToString().
+                    </td>
+                    <td>
+                        @item.SourceName
+                    </td>
+                    <td>
+                        @item.DestinationName
+                    </td>
+                    @*<td>
+                        <button type="button" class="btn btn-danger btn-sm btnDelete alert " style="margin-bottom: 0px !important;" data-bb-example-key="confirm-default" data-id="@item.SourceName" data-id-2="@item.DestinationName">OBRIŠI VEZU</button>
+                    </td>*@
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

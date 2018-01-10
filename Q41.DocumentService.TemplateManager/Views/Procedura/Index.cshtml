@@ -1,0 +1,139 @@
+﻿@model IEnumerable<Q41.DocumentService.TemplateManager.Models.ProcedureCalls>
+
+@{
+    ViewBag.Title = "PROCEDURE";
+}
+
+<h2><div style="font-family:'Segoe UI'; font-weight:bold; color:white;  ">PROCEDURE</div></h2>
+
+<div style="width:100%;  text-align:right; " >
+    <a href="@(Url.Content("~/Procedura/Create/"))" class="btn btn-default btn-sm  ">DODAJ NOVU PROCEDURU</a>
+</div>
+
+<br />
+
+
+@Html.Hidden("RedirectTo", Url.Action("Index", "Procedura"))
+
+
+<div id="l1" class="tabela-apis-bijela">
+    <div class="pod-tabela-apis-bijela">
+
+        @*class="display" cellspacing="0"*@
+        <table id="example" class="display" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>
+                        RBr.
+                    </th>
+                    <th>
+                        Baza
+                    </th>
+                    @*<th>
+                        Paket
+                    </th>
+                    <th>
+                        Shema
+                    </th>*@
+                    <th>
+                        shema.Naziv
+                    </th>
+                    @*<th>
+                        Br.Korištenja
+                    </th>*@
+                    <th></th><th></th>
+                </tr>
+            </thead>
+            @*<tfoot>
+                <tr><td colspan="6"><hr /></td></tr>
+                <tr>
+                    <th>
+                        ID
+                    </th>
+                    <th>
+                        Baza
+                    </th>
+                    <th>
+                        Naziv
+                    </th>
+                    <th>.</th>
+                    <th>.</th>
+                    <th>.</th>
+                </tr>
+            </tfoot>*@
+            <tbody>
+                @foreach (Q41.DocumentService.TemplateManager.Models.vwProcedureCalls item in ViewBag.procedure)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProcedureCallId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ConnectionStringName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PackageName) @Html.DisplayFor(modelItem => item.SchemaName).@Html.DisplayFor(modelItem => item.ProcedureName)
+                        </td>
+                        @*<td>
+                            
+                        </td>
+                        <td>
+                            
+                        </td>*@
+                        @*<td>
+                            @Html.DisplayFor(modelItem => item.Ukupno)
+                        </td>*@
+                        <td>
+                            <a href="@(Url.Content("~/Procedura/Edit/") + item.ProcedureCallId.ToString())" class="btn btn-default btn-sm  gumb-brisanje-apis" title="UREĐIVANJE IZLAZNIH POLJA PROCEDURE">UREDI</a>
+                        </td>
+
+                        <td>
+                            <button type="button" class="btn btn-danger btn-sm btnDelete alert " style="margin-bottom: 0px !important;" data-bb-example-key="confirm-default" data-id="@item.ProcedureCallId,@item.Ukupno">OBRIŠI</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+@section scripts{
+
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Croatian.json"
+                }
+            });
+
+        });
+        //http://bootboxjs.com/documentation.html
+        $(document).on("click", ".alert", function (e) {
+            var button = $(this);
+            var ulazniPodaci = $(this).attr("data-id");
+            var res = ulazniPodaci.split(",");
+
+            var recordToDelete = res[0];
+            var numberOfUse = res[1];
+            var poruka = "Da li ste sigurni da želite obrisati proceduru?"; 
+            if (numberOfUse > 0) {
+                poruka = poruka + " ( Koristi se u " + numberOfUse + " predložaka, sve veze će biti prekinute!)";
+            };
+            var url = $("#RedirectTo").val();
+
+            bootbox.confirm(poruka, function (result) {
+                if (result) {
+                    var url = '@Url.Action("Delete", "Procedura", new { id = "__id__" })';
+                    window.location.href = url.replace('__id__', recordToDelete);
+
+                    console.log("Obrisana je procedura!");
+                }
+                else {
+                    $.post("/Procedura/Index", { id: recordToDelete });
+                    console.log("Nije obrisana procedura");
+                }
+            });
+        });
+
+    </script>
+}

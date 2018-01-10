@@ -1,0 +1,1148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Q88DocumentServiceTestModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityType Name="ConnectionStrings">
+          <Key>
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Value" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="DbmsType" Type="int" Nullable="false" />
+          <Property Name="Created" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ProcedureCalls">
+          <Key>
+            <PropertyRef Name="ProcedureCallId" />
+          </Key>
+          <Property Name="ProcedureCallId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SchemaName" Type="nvarchar" MaxLength="40" />
+          <Property Name="PackageName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProcedureName" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="ConnectionStringName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="DbmsType" Type="int" Nullable="false" />
+          <Property Name="Paramaters" Type="xml" Nullable="false" />
+          <Property Name="ResultFields" Type="xml" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TemplateDataSources">
+          <Key>
+            <PropertyRef Name="TemplateDataSourceId" />
+          </Key>
+          <Property Name="TemplateDataSourceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TemplateId" Type="int" Nullable="false" />
+          <Property Name="ProcedureCallId" Type="int" Nullable="false" />
+          <Property Name="TemplateFields" Type="xml" />
+          <Property Name="ParamaterMappings" Type="xml" />
+          <Property Name="FieldsMappings" Type="xml" />
+        </EntityType>
+        <EntityType Name="TemplateGroups">
+          <Key>
+            <PropertyRef Name="TemplateGroupId" />
+          </Key>
+          <Property Name="TemplateGroupId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ParentGroupId" Type="int" />
+        </EntityType>
+        <EntityType Name="Templates">
+          <Key>
+            <PropertyRef Name="TemplateId" />
+          </Key>
+          <Property Name="TemplateId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Identifier" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Path" Type="nvarchar(max)" />
+          <Property Name="TemplateGroupId" Type="int" Nullable="false" />
+          <Property Name="Paramaters" Type="xml" Nullable="false" />
+          <Property Name="Created" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Q88DocumentServiceTest.dbo.vwBazaStore' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwBazaStore">
+          <Key>
+            <PropertyRef Name="object_name" />
+            <PropertyRef Name="create_date" />
+            <PropertyRef Name="modify_date" />
+          </Key>
+          <Property Name="object_name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="schema_name" Type="nvarchar" MaxLength="128" />
+          <Property Name="type_desc" Type="nvarchar" MaxLength="60" />
+          <Property Name="create_date" Type="datetime" Nullable="false" />
+          <Property Name="modify_date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Q88DocumentServiceTest.dbo.vwMapiranja' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwMapiranja">
+          <Key>
+            <PropertyRef Name="TemplateDataSourceId" />
+          </Key>
+          <Property Name="TemplateDataSourceId" Type="int" Nullable="false" />
+          <Property Name="Identifikator" Type="nvarchar" MaxLength="30" />
+          <Property Name="Predlozak" Type="nvarchar(max)" />
+          <Property Name="Procedura" Type="nvarchar" MaxLength="342" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Q88DocumentServiceTest.dbo.vwProcedureCalls' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwProcedureCalls">
+          <Key>
+            <PropertyRef Name="ProcedureCallId" />
+            <PropertyRef Name="ProcedureName" />
+            <PropertyRef Name="ConnectionStringName" />
+            <PropertyRef Name="DbmsType" />
+            <PropertyRef Name="Paramaters" />
+            <PropertyRef Name="ResultFields" />
+          </Key>
+          <Property Name="RBr" Type="bigint" />
+          <Property Name="ProcedureCallId" Type="int" Nullable="false" />
+          <Property Name="SchemaName" Type="nvarchar" MaxLength="40" />
+          <Property Name="PackageName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProcedureName" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="ConnectionStringName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="DbmsType" Type="int" Nullable="false" />
+          <Property Name="Paramaters" Type="xml" Nullable="false" />
+          <Property Name="ResultFields" Type="xml" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Value" Type="nvarchar" MaxLength="300" />
+          <Property Name="CSDbmsType" Type="int" />
+          <Property Name="ResultFieldsText" Type="nvarchar(max)" />
+          <Property Name="Ukupno" Type="int" />
+          <Property Name="ddlProcedureName" Type="nvarchar" MaxLength="445" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Q88DocumentServiceTest.dbo.vwStore' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwStore">
+          <Key>
+            <PropertyRef Name="name" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="type" Type="char" MaxLength="2" />
+          <Property Name="PARAMETER_NAME" Type="nvarchar" MaxLength="128" />
+          <Property Name="DATA_TYPE" Type="nvarchar" MaxLength="128" />
+          <Property Name="ROUTINE_DEFINITION" Type="nvarchar" MaxLength="4000" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Q88DocumentServiceTest.dbo.vwTemplateGroupTemplate' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwTemplateGroupTemplate">
+          <Key>
+            <PropertyRef Name="TemplateGroupId" />
+            <PropertyRef Name="GroupName" />
+            <PropertyRef Name="TemplateName" />
+          </Key>
+          <Property Name="TemplateGroupId" Type="int" Nullable="false" />
+          <Property Name="GroupName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ParentGroupId" Type="int" />
+          <Property Name="TemplateId" Type="int" />
+          <Property Name="TemplateName" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Q88DocumentServiceTest.dbo.vwTemplates' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwTemplates">
+          <Key>
+            <PropertyRef Name="TemplateId" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="Identifier" />
+            <PropertyRef Name="TemplateGroupId" />
+            <PropertyRef Name="ParentGroupId" />
+            <PropertyRef Name="TemplateDataSourceId" />
+            <PropertyRef Name="ProcedureCallId" />
+          </Key>
+          <Property Name="TemplateId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Identifier" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Path" Type="nvarchar(max)" />
+          <Property Name="TemplateGroupId" Type="int" Nullable="false" />
+          <Property Name="Paramaters" Type="nvarchar(max)" />
+          <Property Name="GroupName" Type="nvarchar(max)" />
+          <Property Name="ParentGroupId" Type="int" Nullable="false" />
+          <Property Name="TemplateDataSourceId" Type="int" Nullable="false" />
+          <Property Name="ProcedureCallId" Type="int" Nullable="false" />
+          <Property Name="TemplateFields" Type="nvarchar(max)" />
+          <Property Name="ParamaterMappings" Type="nvarchar(max)" />
+          <Property Name="FieldsMappings" Type="nvarchar(max)" />
+          <Property Name="Created" Type="date" />
+        </EntityType>
+        <Association Name="FK_ProcedureCalls_ConnectionStrings">
+          <End Role="ConnectionStrings" Type="Self.ConnectionStrings" Multiplicity="1" />
+          <End Role="ProcedureCalls" Type="Self.ProcedureCalls" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ConnectionStrings">
+              <PropertyRef Name="Name" />
+            </Principal>
+            <Dependent Role="ProcedureCalls">
+              <PropertyRef Name="ConnectionStringName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Template_TemplateGroup">
+          <End Role="TemplateGroups" Type="Self.TemplateGroups" Multiplicity="1" />
+          <End Role="Templates" Type="Self.Templates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TemplateGroups">
+              <PropertyRef Name="TemplateGroupId" />
+            </Principal>
+            <Dependent Role="Templates">
+              <PropertyRef Name="TemplateGroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TemplateDataSources_Templates">
+          <End Role="Templates" Type="Self.Templates" Multiplicity="1" />
+          <End Role="TemplateDataSources" Type="Self.TemplateDataSources" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Templates">
+              <PropertyRef Name="TemplateId" />
+            </Principal>
+            <Dependent Role="TemplateDataSources">
+              <PropertyRef Name="TemplateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="spBrisanjeMapiranogPolja" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Identifier" Type="nvarchar" Mode="In" />
+          <Parameter Name="Polje" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spBrisanjeMapiranogPoljaById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="Polje" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spDodavanjeMapiranogPolja" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Identifier" Type="nvarchar" Mode="In" />
+          <Parameter Name="Polje" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spDodavanjeMapiranogPoljaById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="Polje" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spPartialParametriMapiranja" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TemplateDataSourceId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spPartialParametriPredloska" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TemplateId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spPartialParametriProcedure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProcedureCallId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spPopisParametara" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProcedureCallId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spPopisPolja" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TemplateId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spProcedureCallsBrisanjeParametra" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProcedureName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Parametar" Type="nvarchar" Mode="In" />
+          <Parameter Name="Cursor" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spProcedureCallsDodavanjeParametra" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProcedureName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Parametar" Type="nvarchar" Mode="In" />
+          <Parameter Name="Cursor" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spProcedureCallsDodavanjeParametraById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="procedureCallId" Type="int" Mode="In" />
+          <Parameter Name="Parametar" Type="nvarchar" Mode="In" />
+          <Parameter Name="Cursor" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spProcedureCallSelectByProcedureName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProcedureName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spSinkronizirajPredlozakSaStorom" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TemplateId" Type="int" Mode="In" />
+          <Parameter Name="ProcedureCallId" Type="int" Mode="In" />
+          <Parameter Name="brojPovezanih" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="spTemplatesParametersBrisanjeParametra" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Identifier" Type="nvarchar" Mode="In" />
+          <Parameter Name="ParametarName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Table" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spTemplatesParametersDodavanjeParametra" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Identifier" Type="nvarchar" Mode="In" />
+          <Parameter Name="ParametarName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Table" Type="nvarchar" Mode="In" />
+          <Parameter Name="ParametarType" Type="nvarchar" Mode="In" />
+          <Parameter Name="ParametarRequired" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="TemplateDataSourceDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TemplateDataSourceId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="TemplateDataSourceDeleteByTemplateID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TemplateId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="TemplateDataSourceSelect" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="TemplateDataSourceUpsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TemplateDataSourceId" Type="int" Mode="InOut" />
+          <Parameter Name="TemplateId" Type="int" Mode="In" />
+          <Parameter Name="ProcedureCallId" Type="int" Mode="In" />
+          <Parameter Name="TemplateFields" Type="xml" Mode="In" />
+          <Parameter Name="ParamaterMappings" Type="xml" Mode="In" />
+          <Parameter Name="FieldsMappings" Type="xml" Mode="In" />
+        </Function>
+        <Function Name="TemplateDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TemplateId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="TemplateGroupDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TemplateGroupId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="TemplateGroupHierarchySelect" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="TemplateGroups_punjenje_podacima" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="TemplateGroupSelect" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="TemplateGroupUpsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TemplateGroupId" Type="int" Mode="InOut" />
+          <Parameter Name="Name" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="ParentGroupId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="TemplateSelect" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="TemplateSelectByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TemplateId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="TemplateSelectByIdentifier" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Identifier" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="TemplateUpload" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TemplateId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="TemplateUploadFolder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="folder" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="TemplateId" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="TemplateUpsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TemplateId" Type="int" Mode="InOut" />
+          <Parameter Name="Name" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Identifier" Type="nvarchar" Mode="In" />
+          <Parameter Name="Path" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="TemplateGroupId" Type="int" Mode="In" />
+          <Parameter Name="Paramaters" Type="xml" Mode="In" />
+          <Parameter Name="TemplateDataSourceId" Type="int" Mode="InOut" />
+          <Parameter Name="ProcedureCallId" Type="int" Mode="In" />
+          <Parameter Name="TemplateFields" Type="xml" Mode="In" />
+          <Parameter Name="ParamaterMappings" Type="xml" Mode="In" />
+          <Parameter Name="FieldsMappings" Type="xml" Mode="In" />
+        </Function>
+        <EntityContainer Name="Q88DocumentServiceTestModelStoreContainer">
+          <EntitySet Name="ConnectionStrings" EntityType="Self.ConnectionStrings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProcedureCalls" EntityType="Self.ProcedureCalls" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TemplateDataSources" EntityType="Self.TemplateDataSources" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TemplateGroups" EntityType="Self.TemplateGroups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Templates" EntityType="Self.Templates" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vwBazaStore" EntityType="Self.vwBazaStore" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[vwBazaStore].[object_name] AS [object_name], 
+[vwBazaStore].[schema_name] AS [schema_name], 
+[vwBazaStore].[type_desc] AS [type_desc], 
+[vwBazaStore].[create_date] AS [create_date], 
+[vwBazaStore].[modify_date] AS [modify_date]
+FROM [dbo].[vwBazaStore] AS [vwBazaStore]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwMapiranja" EntityType="Self.vwMapiranja" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[vwMapiranja].[TemplateDataSourceId] AS [TemplateDataSourceId], 
+[vwMapiranja].[Identifikator] AS [Identifikator], 
+[vwMapiranja].[Predlozak] AS [Predlozak], 
+[vwMapiranja].[Procedura] AS [Procedura]
+FROM [dbo].[vwMapiranja] AS [vwMapiranja]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwProcedureCalls" EntityType="Self.vwProcedureCalls" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[vwProcedureCalls].[RBr] AS [RBr], 
+[vwProcedureCalls].[ProcedureCallId] AS [ProcedureCallId], 
+[vwProcedureCalls].[SchemaName] AS [SchemaName], 
+[vwProcedureCalls].[PackageName] AS [PackageName], 
+[vwProcedureCalls].[ProcedureName] AS [ProcedureName], 
+[vwProcedureCalls].[ConnectionStringName] AS [ConnectionStringName], 
+[vwProcedureCalls].[DbmsType] AS [DbmsType], 
+[vwProcedureCalls].[Paramaters] AS [Paramaters], 
+[vwProcedureCalls].[ResultFields] AS [ResultFields], 
+[vwProcedureCalls].[Name] AS [Name], 
+[vwProcedureCalls].[Value] AS [Value], 
+[vwProcedureCalls].[CSDbmsType] AS [CSDbmsType], 
+[vwProcedureCalls].[ResultFieldsText] AS [ResultFieldsText], 
+[vwProcedureCalls].[Ukupno] AS [Ukupno], 
+[vwProcedureCalls].[ddlProcedureName] AS [ddlProcedureName]
+FROM [dbo].[vwProcedureCalls] AS [vwProcedureCalls]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwStore" EntityType="Self.vwStore" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[vwStore].[name] AS [name], 
+[vwStore].[type] AS [type], 
+[vwStore].[PARAMETER_NAME] AS [PARAMETER_NAME], 
+[vwStore].[DATA_TYPE] AS [DATA_TYPE], 
+[vwStore].[ROUTINE_DEFINITION] AS [ROUTINE_DEFINITION]
+FROM [dbo].[vwStore] AS [vwStore]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwTemplateGroupTemplate" EntityType="Self.vwTemplateGroupTemplate" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[vwTemplateGroupTemplate].[TemplateGroupId] AS [TemplateGroupId], 
+[vwTemplateGroupTemplate].[GroupName] AS [GroupName], 
+[vwTemplateGroupTemplate].[ParentGroupId] AS [ParentGroupId], 
+[vwTemplateGroupTemplate].[TemplateId] AS [TemplateId], 
+[vwTemplateGroupTemplate].[TemplateName] AS [TemplateName]
+FROM [dbo].[vwTemplateGroupTemplate] AS [vwTemplateGroupTemplate]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwTemplates" EntityType="Self.vwTemplates" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[vwTemplates].[TemplateId] AS [TemplateId], 
+[vwTemplates].[Name] AS [Name], 
+[vwTemplates].[Identifier] AS [Identifier], 
+[vwTemplates].[Path] AS [Path], 
+[vwTemplates].[TemplateGroupId] AS [TemplateGroupId], 
+[vwTemplates].[Paramaters] AS [Paramaters], 
+[vwTemplates].[GroupName] AS [GroupName], 
+[vwTemplates].[ParentGroupId] AS [ParentGroupId], 
+[vwTemplates].[TemplateDataSourceId] AS [TemplateDataSourceId], 
+[vwTemplates].[ProcedureCallId] AS [ProcedureCallId], 
+[vwTemplates].[TemplateFields] AS [TemplateFields], 
+[vwTemplates].[ParamaterMappings] AS [ParamaterMappings], 
+[vwTemplates].[FieldsMappings] AS [FieldsMappings], 
+[vwTemplates].[Created] AS [Created]
+FROM [dbo].[vwTemplates] AS [vwTemplates]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_ProcedureCalls_ConnectionStrings" Association="Self.FK_ProcedureCalls_ConnectionStrings">
+            <End Role="ConnectionStrings" EntitySet="ConnectionStrings" />
+            <End Role="ProcedureCalls" EntitySet="ProcedureCalls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Template_TemplateGroup" Association="Self.FK_Template_TemplateGroup">
+            <End Role="TemplateGroups" EntitySet="TemplateGroups" />
+            <End Role="Templates" EntitySet="Templates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TemplateDataSources_Templates" Association="Self.FK_TemplateDataSources_Templates">
+            <End Role="Templates" EntitySet="Templates" />
+            <End Role="TemplateDataSources" EntitySet="TemplateDataSources" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Q88DocumentServiceTestModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityType Name="ConnectionStrings">
+          <Key>
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Value" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DbmsType" Type="Int32" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ProcedureCalls" Relationship="Self.FK_ProcedureCalls_ConnectionStrings" FromRole="ConnectionStrings" ToRole="ProcedureCalls" />
+        </EntityType>
+        <EntityType Name="ProcedureCalls">
+          <Key>
+            <PropertyRef Name="ProcedureCallId" />
+          </Key>
+          <Property Name="ProcedureCallId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SchemaName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="PackageName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProcedureName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ConnectionStringName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DbmsType" Type="Int32" Nullable="false" />
+          <Property Name="Paramaters" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ResultFields" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ConnectionStrings" Relationship="Self.FK_ProcedureCalls_ConnectionStrings" FromRole="ProcedureCalls" ToRole="ConnectionStrings" />
+        </EntityType>
+        <EntityType Name="TemplateDataSources">
+          <Key>
+            <PropertyRef Name="TemplateDataSourceId" />
+          </Key>
+          <Property Name="TemplateDataSourceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TemplateId" Type="Int32" Nullable="false" />
+          <Property Name="ProcedureCallId" Type="Int32" Nullable="false" />
+          <Property Name="TemplateFields" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ParamaterMappings" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FieldsMappings" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Templates" Relationship="Self.FK_TemplateDataSources_Templates" FromRole="TemplateDataSources" ToRole="Templates" />
+        </EntityType>
+        <EntityType Name="TemplateGroups">
+          <Key>
+            <PropertyRef Name="TemplateGroupId" />
+          </Key>
+          <Property Name="TemplateGroupId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ParentGroupId" Type="Int32" />
+          <NavigationProperty Name="Templates" Relationship="Self.FK_Template_TemplateGroup" FromRole="TemplateGroups" ToRole="Templates" />
+        </EntityType>
+        <EntityType Name="Templates">
+          <Key>
+            <PropertyRef Name="TemplateId" />
+          </Key>
+          <Property Name="TemplateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Identifier" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Path" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TemplateGroupId" Type="Int32" Nullable="false" />
+          <Property Name="Paramaters" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="TemplateDataSources" Relationship="Self.FK_TemplateDataSources_Templates" FromRole="Templates" ToRole="TemplateDataSources" />
+          <NavigationProperty Name="TemplateGroups" Relationship="Self.FK_Template_TemplateGroup" FromRole="Templates" ToRole="TemplateGroups" />
+        </EntityType>
+        <EntityType Name="vwBazaStore">
+          <Key>
+            <PropertyRef Name="object_name" />
+            <PropertyRef Name="create_date" />
+            <PropertyRef Name="modify_date" />
+          </Key>
+          <Property Name="object_name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="schema_name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="type_desc" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="vwProcedureCalls">
+          <Key>
+            <PropertyRef Name="ProcedureCallId" />
+            <PropertyRef Name="ProcedureName" />
+            <PropertyRef Name="ConnectionStringName" />
+            <PropertyRef Name="DbmsType" />
+            <PropertyRef Name="Paramaters" />
+            <PropertyRef Name="ResultFields" />
+          </Key>
+          <Property Name="ProcedureCallId" Type="Int32" Nullable="false" />
+          <Property Name="SchemaName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="PackageName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProcedureName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ConnectionStringName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DbmsType" Type="Int32" Nullable="false" />
+          <Property Name="Paramaters" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ResultFields" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Value" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="CSDbmsType" Type="Int32" />
+          <Property Name="RBr" Type="Int64" />
+          <Property Name="ResultFieldsText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Ukupno" Type="Int32" />
+          <Property Name="ddlProcedureName" Type="String" MaxLength="445" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="vwStore">
+          <Key>
+            <PropertyRef Name="name" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="type" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="PARAMETER_NAME" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="DATA_TYPE" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ROUTINE_DEFINITION" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="vwTemplateGroupTemplate">
+          <Key>
+            <PropertyRef Name="TemplateGroupId" />
+            <PropertyRef Name="GroupName" />
+            <PropertyRef Name="TemplateName" />
+          </Key>
+          <Property Name="TemplateGroupId" Type="Int32" Nullable="false" />
+          <Property Name="GroupName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ParentGroupId" Type="Int32" />
+          <Property Name="TemplateId" Type="Int32" />
+          <Property Name="TemplateName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ProcedureCalls_ConnectionStrings">
+          <End Role="ConnectionStrings" Type="Self.ConnectionStrings" Multiplicity="1" />
+          <End Role="ProcedureCalls" Type="Self.ProcedureCalls" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ConnectionStrings">
+              <PropertyRef Name="Name" />
+            </Principal>
+            <Dependent Role="ProcedureCalls">
+              <PropertyRef Name="ConnectionStringName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TemplateDataSources_Templates">
+          <End Role="Templates" Type="Self.Templates" Multiplicity="1" />
+          <End Role="TemplateDataSources" Type="Self.TemplateDataSources" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Templates">
+              <PropertyRef Name="TemplateId" />
+            </Principal>
+            <Dependent Role="TemplateDataSources">
+              <PropertyRef Name="TemplateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Template_TemplateGroup">
+          <End Role="TemplateGroups" Type="Self.TemplateGroups" Multiplicity="1" />
+          <End Role="Templates" Type="Self.Templates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TemplateGroups">
+              <PropertyRef Name="TemplateGroupId" />
+            </Principal>
+            <Dependent Role="Templates">
+              <PropertyRef Name="TemplateGroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Q88DocumentServiceTestEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ConnectionStrings" EntityType="Self.ConnectionStrings" />
+          <EntitySet Name="ProcedureCalls" EntityType="Self.ProcedureCalls" />
+          <EntitySet Name="TemplateDataSources" EntityType="Self.TemplateDataSources" />
+          <EntitySet Name="TemplateGroups" EntityType="Self.TemplateGroups" />
+          <EntitySet Name="Templates" EntityType="Self.Templates" />
+          <EntitySet Name="vwBazaStore" EntityType="Self.vwBazaStore" />
+          <EntitySet Name="vwProcedureCalls" EntityType="Self.vwProcedureCalls" />
+          <EntitySet Name="vwStore" EntityType="Self.vwStore" />
+          <EntitySet Name="vwTemplateGroupTemplate" EntityType="Self.vwTemplateGroupTemplate" />
+          <AssociationSet Name="FK_ProcedureCalls_ConnectionStrings" Association="Self.FK_ProcedureCalls_ConnectionStrings">
+            <End Role="ConnectionStrings" EntitySet="ConnectionStrings" />
+            <End Role="ProcedureCalls" EntitySet="ProcedureCalls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TemplateDataSources_Templates" Association="Self.FK_TemplateDataSources_Templates">
+            <End Role="Templates" EntitySet="Templates" />
+            <End Role="TemplateDataSources" EntitySet="TemplateDataSources" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Template_TemplateGroup" Association="Self.FK_Template_TemplateGroup">
+            <End Role="TemplateGroups" EntitySet="TemplateGroups" />
+            <End Role="Templates" EntitySet="Templates" />
+          </AssociationSet>
+          <FunctionImport Name="spBrisanjeMapiranogPolja">
+            <Parameter Name="Identifier" Mode="In" Type="String" />
+            <Parameter Name="Polje" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spBrisanjeMapiranogPoljaById">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="Polje" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spDodavanjeMapiranogPolja">
+            <Parameter Name="Identifier" Mode="In" Type="String" />
+            <Parameter Name="Polje" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spDodavanjeMapiranogPoljaById">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="Polje" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spProcedureCallsBrisanjeParametra">
+            <Parameter Name="ProcedureName" Mode="In" Type="String" />
+            <Parameter Name="Parametar" Mode="In" Type="String" />
+            <Parameter Name="Cursor" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spProcedureCallsDodavanjeParametra">
+            <Parameter Name="ProcedureName" Mode="In" Type="String" />
+            <Parameter Name="Parametar" Mode="In" Type="String" />
+            <Parameter Name="Cursor" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spProcedureCallsDodavanjeParametraById">
+            <Parameter Name="procedureCallId" Mode="In" Type="Int32" />
+            <Parameter Name="Parametar" Mode="In" Type="String" />
+            <Parameter Name="Cursor" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spTemplatesParametersBrisanjeParametra">
+            <Parameter Name="Identifier" Mode="In" Type="String" />
+            <Parameter Name="ParametarName" Mode="In" Type="String" />
+            <Parameter Name="Table" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spTemplatesParametersDodavanjeParametra">
+            <Parameter Name="Identifier" Mode="In" Type="String" />
+            <Parameter Name="ParametarName" Mode="In" Type="String" />
+            <Parameter Name="Table" Mode="In" Type="String" />
+            <Parameter Name="ParametarType" Mode="In" Type="String" />
+            <Parameter Name="ParametarRequired" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="vwMapiranja" EntityType="Q88DocumentServiceTestModel.vwMapiranja" />
+          <EntitySet Name="vwTemplates" EntityType="Q88DocumentServiceTestModel.vwTemplates" />
+          <FunctionImport Name="spPartialParametriMapiranja" ReturnType="Collection(Q88DocumentServiceTestModel.spPartialParametriMapiranja_Result)">
+          <Parameter Name="TemplateDataSourceId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spPartialParametriPredloska" ReturnType="Collection(Q88DocumentServiceTestModel.spPartialParametriPredloska_Result)">
+          <Parameter Name="TemplateId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spPartialParametriProcedure" ReturnType="Collection(Q88DocumentServiceTestModel.spPartialParametriProcedure_Result)">
+          <Parameter Name="ProcedureCallId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spProcedureCallSelectByProcedureName" ReturnType="Collection(Q88DocumentServiceTestModel.spProcedureCallSelectByProcedureName_Result)">
+          <Parameter Name="ProcedureName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spSinkronizirajPredlozakSaStorom">
+            <Parameter Name="TemplateId" Mode="In" Type="Int32" />
+            <Parameter Name="ProcedureCallId" Mode="In" Type="Int32" />
+            <Parameter Name="brojPovezanih" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="TemplateDataSourceDelete">
+          <Parameter Name="TemplateDataSourceId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="TemplateDataSourceDeleteByTemplateID">
+          <Parameter Name="TemplateId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="TemplateDataSourceSelect" ReturnType="Collection(Q88DocumentServiceTestModel.TemplateDataSourceSelect_Result)" />
+          <FunctionImport Name="TemplateDataSourceUpsert">
+            <Parameter Name="TemplateDataSourceId" Mode="InOut" Type="Int32" />
+            <Parameter Name="TemplateId" Mode="In" Type="Int32" />
+            <Parameter Name="ProcedureCallId" Mode="In" Type="Int32" />
+            <Parameter Name="TemplateFields" Mode="In" Type="String" />
+            <Parameter Name="ParamaterMappings" Mode="In" Type="String" />
+            <Parameter Name="FieldsMappings" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="TemplateDelete">
+          <Parameter Name="TemplateId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="TemplateGroupDelete">
+          <Parameter Name="TemplateGroupId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="TemplateGroupHierarchySelect" ReturnType="Collection(Q88DocumentServiceTestModel.TemplateGroupHierarchySelect_Result)" />
+          <FunctionImport Name="TemplateGroups_punjenje_podacima" />
+          <FunctionImport Name="TemplateGroupSelect" ReturnType="Collection(Q88DocumentServiceTestModel.TemplateGroupSelect_Result)" />
+          <FunctionImport Name="TemplateGroupUpsert" ReturnType="Collection(Int32)">
+            <Parameter Name="TemplateGroupId" Mode="InOut" Type="Int32" />
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="ParentGroupId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="TemplateSelect" ReturnType="Collection(Q88DocumentServiceTestModel.TemplateSelect_Result)" />
+          <FunctionImport Name="TemplateSelectByID">
+          <Parameter Name="TemplateId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="TemplateSelectByIdentifier">
+          <Parameter Name="Identifier" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="TemplateUpload" ReturnType="Collection(String)">
+          <Parameter Name="TemplateId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="TemplateUploadFolder" ReturnType="Collection(Q88DocumentServiceTestModel.TemplateUploadFolder_Result)">
+            <Parameter Name="folder" Mode="In" Type="String" />
+            <Parameter Name="TemplateId" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="TemplateUpsert" ReturnType="Collection(Int32)">
+            <Parameter Name="TemplateId" Mode="InOut" Type="Int32" />
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="Identifier" Mode="In" Type="String" />
+            <Parameter Name="Path" Mode="In" Type="String" />
+            <Parameter Name="TemplateGroupId" Mode="In" Type="Int32" />
+            <Parameter Name="Paramaters" Mode="In" Type="String" />
+            <Parameter Name="TemplateDataSourceId" Mode="InOut" Type="Int32" />
+            <Parameter Name="ProcedureCallId" Mode="In" Type="Int32" />
+            <Parameter Name="TemplateFields" Mode="In" Type="String" />
+            <Parameter Name="ParamaterMappings" Mode="In" Type="String" />
+            <Parameter Name="FieldsMappings" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spPopisParametara" ReturnType="Collection(Q88DocumentServiceTestModel.spPopisParametara_Result)">
+            <Parameter Name="ProcedureCallId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spPopisPolja" ReturnType="Collection(Q88DocumentServiceTestModel.spPopisPolja_Result)">
+            <Parameter Name="TemplateId" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="vwMapiranja">
+          <Key>
+            <PropertyRef Name="TemplateDataSourceId" />
+          </Key>
+          <Property Name="TemplateDataSourceId" Type="Int32" Nullable="false" />
+          <Property Name="Identifikator" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Predlozak" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Procedura" Type="String" MaxLength="342" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="vwTemplates">
+          <Key>
+            <PropertyRef Name="TemplateId" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="Identifier" />
+            <PropertyRef Name="TemplateGroupId" />
+            <PropertyRef Name="ParentGroupId" />
+            <PropertyRef Name="TemplateDataSourceId" />
+            <PropertyRef Name="ProcedureCallId" />
+          </Key>
+          <Property Name="TemplateId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Identifier" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Path" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TemplateGroupId" Type="Int32" Nullable="false" />
+          <Property Name="Paramaters" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GroupName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ParentGroupId" Type="Int32" Nullable="false" />
+          <Property Name="TemplateDataSourceId" Type="Int32" Nullable="false" />
+          <Property Name="ProcedureCallId" Type="Int32" Nullable="false" />
+          <Property Name="TemplateFields" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ParamaterMappings" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FieldsMappings" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Precision="0" />
+        </EntityType>
+        <ComplexType Name="spPartialParametriMapiranja_Result">
+          <Property Type="Int32" Name="TemplateDataSourceId" Nullable="false" />
+          <Property Type="String" Name="ParametarProcedure" Nullable="true" />
+          <Property Type="String" Name="ParametarPredloska" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spPartialParametriPredloska_Result">
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="DataType" Nullable="false" MaxLength="7" />
+          <Property Type="Boolean" Name="IsRequired" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spPartialParametriProcedure_Result">
+          <Property Type="String" Name="Naziv" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="Opis" Nullable="false" MaxLength="4" />
+          <Property Type="String" Name="Primjer" Nullable="false" MaxLength="16" />
+        </ComplexType>
+        <ComplexType Name="spProcedureCallSelectByProcedureName_Result">
+          <Property Type="Int64" Name="RBr" Nullable="true" />
+          <Property Type="Int32" Name="ProcedureCallId" Nullable="false" />
+          <Property Type="String" Name="SchemaName" Nullable="true" MaxLength="40" />
+          <Property Type="String" Name="PackageName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ProcedureName" Nullable="false" MaxLength="250" />
+          <Property Type="String" Name="ConnectionStringName" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="DbmsType" Nullable="false" />
+          <Property Type="String" Name="Paramaters" Nullable="false" MaxLength="Max" />
+          <Property Type="String" Name="ResultFields" Nullable="false" MaxLength="Max" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Value" Nullable="true" MaxLength="300" />
+          <Property Type="Int32" Name="CSDbmsType" Nullable="true" />
+          <Property Type="String" Name="ResultFieldsText" Nullable="true" />
+          <Property Type="Int32" Name="Ukupno" Nullable="true" />
+          <Property Type="String" Name="ddlProcedureName" Nullable="true" MaxLength="445" />
+        </ComplexType>
+        <ComplexType Name="TemplateDataSourceSelect_Result">
+          <Property Type="Int32" Name="TemplateDataSourceId" Nullable="false" />
+          <Property Type="Int32" Name="TemplateId" Nullable="false" />
+          <Property Type="Int32" Name="ProcedureCallId" Nullable="false" />
+          <Property Type="String" Name="TemplateFields" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="ParamaterMappings" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="FieldsMappings" Nullable="true" MaxLength="Max" />
+        </ComplexType>
+        <ComplexType Name="TemplateGroupHierarchySelect_Result">
+          <Property Type="Int32" Name="TemplateGroupId" Nullable="true" />
+          <Property Type="String" Name="Name" Nullable="true" />
+          <Property Type="Int32" Name="ParentGroupId" Nullable="true" />
+          <Property Type="Int32" Name="Level" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="TemplateGroupSelect_Result">
+          <Property Type="Int32" Name="TemplateGroupId" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" />
+          <Property Type="Int32" Name="ParentGroupId" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="TemplateSelect_Result">
+          <Property Type="Int32" Name="TemplateId" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" />
+          <Property Type="String" Name="Identifier" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="Path" Nullable="true" />
+          <Property Type="Int32" Name="TemplateGroupId" Nullable="false" />
+          <Property Type="String" Name="Paramaters" Nullable="true" />
+          <Property Type="String" Name="GroupName" Nullable="true" />
+          <Property Type="Int32" Name="ParentGroupId" Nullable="false" />
+          <Property Type="Int32" Name="TemplateDataSourceId" Nullable="false" />
+          <Property Type="Int32" Name="ProcedureCallId" Nullable="false" />
+          <Property Type="String" Name="TemplateFields" Nullable="true" />
+          <Property Type="String" Name="ParamaterMappings" Nullable="true" />
+          <Property Type="String" Name="FieldsMappings" Nullable="true" />
+          <Property Type="DateTime" Name="Created" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="TemplateUploadFolder_Result">
+          <Property Type="String" Name="Putanja" Nullable="true" />
+          <Property Type="Int32" Name="TemplateId" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spPopisParametara_Result">
+          <Property Type="Int32" Name="ID" Nullable="true" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="200" />
+        </ComplexType>
+        <ComplexType Name="spPopisPolja_Result">
+          <Property Type="Int32" Name="ID" Nullable="true" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="200" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Q88DocumentServiceTestModelStoreContainer" CdmEntityContainer="Q88DocumentServiceTestEntities">
+          <EntitySetMapping Name="ConnectionStrings">
+            <EntityTypeMapping TypeName="Q88DocumentServiceTestModel.ConnectionStrings">
+              <MappingFragment StoreEntitySet="ConnectionStrings">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="DbmsType" ColumnName="DbmsType" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProcedureCalls">
+            <EntityTypeMapping TypeName="Q88DocumentServiceTestModel.ProcedureCalls">
+              <MappingFragment StoreEntitySet="ProcedureCalls">
+                <ScalarProperty Name="ProcedureCallId" ColumnName="ProcedureCallId" />
+                <ScalarProperty Name="SchemaName" ColumnName="SchemaName" />
+                <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+                <ScalarProperty Name="ProcedureName" ColumnName="ProcedureName" />
+                <ScalarProperty Name="ConnectionStringName" ColumnName="ConnectionStringName" />
+                <ScalarProperty Name="DbmsType" ColumnName="DbmsType" />
+                <ScalarProperty Name="Paramaters" ColumnName="Paramaters" />
+                <ScalarProperty Name="ResultFields" ColumnName="ResultFields" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TemplateDataSources">
+            <EntityTypeMapping TypeName="Q88DocumentServiceTestModel.TemplateDataSources">
+              <MappingFragment StoreEntitySet="TemplateDataSources">
+                <ScalarProperty Name="TemplateDataSourceId" ColumnName="TemplateDataSourceId" />
+                <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
+                <ScalarProperty Name="ProcedureCallId" ColumnName="ProcedureCallId" />
+                <ScalarProperty Name="TemplateFields" ColumnName="TemplateFields" />
+                <ScalarProperty Name="ParamaterMappings" ColumnName="ParamaterMappings" />
+                <ScalarProperty Name="FieldsMappings" ColumnName="FieldsMappings" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TemplateGroups">
+            <EntityTypeMapping TypeName="Q88DocumentServiceTestModel.TemplateGroups">
+              <MappingFragment StoreEntitySet="TemplateGroups">
+                <ScalarProperty Name="TemplateGroupId" ColumnName="TemplateGroupId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ParentGroupId" ColumnName="ParentGroupId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Templates">
+            <EntityTypeMapping TypeName="Q88DocumentServiceTestModel.Templates">
+              <MappingFragment StoreEntitySet="Templates">
+                <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Identifier" ColumnName="Identifier" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="TemplateGroupId" ColumnName="TemplateGroupId" />
+                <ScalarProperty Name="Paramaters" ColumnName="Paramaters" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwBazaStore">
+            <EntityTypeMapping TypeName="Q88DocumentServiceTestModel.vwBazaStore">
+              <MappingFragment StoreEntitySet="vwBazaStore">
+                <ScalarProperty Name="object_name" ColumnName="object_name" />
+                <ScalarProperty Name="schema_name" ColumnName="schema_name" />
+                <ScalarProperty Name="type_desc" ColumnName="type_desc" />
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwProcedureCalls">
+            <EntityTypeMapping TypeName="Q88DocumentServiceTestModel.vwProcedureCalls">
+              <MappingFragment StoreEntitySet="vwProcedureCalls">
+                <ScalarProperty Name="ddlProcedureName" ColumnName="ddlProcedureName" />
+                <ScalarProperty Name="Ukupno" ColumnName="Ukupno" />
+                <ScalarProperty Name="ResultFieldsText" ColumnName="ResultFieldsText" />
+                <ScalarProperty Name="RBr" ColumnName="RBr" />
+                <ScalarProperty Name="ProcedureCallId" ColumnName="ProcedureCallId" />
+                <ScalarProperty Name="SchemaName" ColumnName="SchemaName" />
+                <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+                <ScalarProperty Name="ProcedureName" ColumnName="ProcedureName" />
+                <ScalarProperty Name="ConnectionStringName" ColumnName="ConnectionStringName" />
+                <ScalarProperty Name="DbmsType" ColumnName="DbmsType" />
+                <ScalarProperty Name="Paramaters" ColumnName="Paramaters" />
+                <ScalarProperty Name="ResultFields" ColumnName="ResultFields" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="CSDbmsType" ColumnName="CSDbmsType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwStore">
+            <EntityTypeMapping TypeName="Q88DocumentServiceTestModel.vwStore">
+              <MappingFragment StoreEntitySet="vwStore">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="PARAMETER_NAME" ColumnName="PARAMETER_NAME" />
+                <ScalarProperty Name="DATA_TYPE" ColumnName="DATA_TYPE" />
+                <ScalarProperty Name="ROUTINE_DEFINITION" ColumnName="ROUTINE_DEFINITION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwTemplateGroupTemplate">
+            <EntityTypeMapping TypeName="Q88DocumentServiceTestModel.vwTemplateGroupTemplate">
+              <MappingFragment StoreEntitySet="vwTemplateGroupTemplate">
+                <ScalarProperty Name="TemplateGroupId" ColumnName="TemplateGroupId" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="ParentGroupId" ColumnName="ParentGroupId" />
+                <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
+                <ScalarProperty Name="TemplateName" ColumnName="TemplateName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spBrisanjeMapiranogPolja" FunctionName="Q88DocumentServiceTestModel.Store.spBrisanjeMapiranogPolja" />
+          <FunctionImportMapping FunctionImportName="spBrisanjeMapiranogPoljaById" FunctionName="Q88DocumentServiceTestModel.Store.spBrisanjeMapiranogPoljaById" />
+          <FunctionImportMapping FunctionImportName="spDodavanjeMapiranogPolja" FunctionName="Q88DocumentServiceTestModel.Store.spDodavanjeMapiranogPolja" />
+          <FunctionImportMapping FunctionImportName="spDodavanjeMapiranogPoljaById" FunctionName="Q88DocumentServiceTestModel.Store.spDodavanjeMapiranogPoljaById" />
+          <FunctionImportMapping FunctionImportName="spProcedureCallsBrisanjeParametra" FunctionName="Q88DocumentServiceTestModel.Store.spProcedureCallsBrisanjeParametra" />
+          <FunctionImportMapping FunctionImportName="spProcedureCallsDodavanjeParametra" FunctionName="Q88DocumentServiceTestModel.Store.spProcedureCallsDodavanjeParametra" />
+          <FunctionImportMapping FunctionImportName="spProcedureCallsDodavanjeParametraById" FunctionName="Q88DocumentServiceTestModel.Store.spProcedureCallsDodavanjeParametraById" />
+          <FunctionImportMapping FunctionImportName="spTemplatesParametersBrisanjeParametra" FunctionName="Q88DocumentServiceTestModel.Store.spTemplatesParametersBrisanjeParametra" />
+          <FunctionImportMapping FunctionImportName="spTemplatesParametersDodavanjeParametra" FunctionName="Q88DocumentServiceTestModel.Store.spTemplatesParametersDodavanjeParametra" />
+          <EntitySetMapping Name="vwMapiranja">
+            <EntityTypeMapping TypeName="Q88DocumentServiceTestModel.vwMapiranja">
+              <MappingFragment StoreEntitySet="vwMapiranja">
+                <ScalarProperty Name="Procedura" ColumnName="Procedura" />
+                <ScalarProperty Name="Predlozak" ColumnName="Predlozak" />
+                <ScalarProperty Name="Identifikator" ColumnName="Identifikator" />
+                <ScalarProperty Name="TemplateDataSourceId" ColumnName="TemplateDataSourceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwTemplates">
+            <EntityTypeMapping TypeName="Q88DocumentServiceTestModel.vwTemplates">
+              <MappingFragment StoreEntitySet="vwTemplates">
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="FieldsMappings" ColumnName="FieldsMappings" />
+                <ScalarProperty Name="ParamaterMappings" ColumnName="ParamaterMappings" />
+                <ScalarProperty Name="TemplateFields" ColumnName="TemplateFields" />
+                <ScalarProperty Name="ProcedureCallId" ColumnName="ProcedureCallId" />
+                <ScalarProperty Name="TemplateDataSourceId" ColumnName="TemplateDataSourceId" />
+                <ScalarProperty Name="ParentGroupId" ColumnName="ParentGroupId" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="Paramaters" ColumnName="Paramaters" />
+                <ScalarProperty Name="TemplateGroupId" ColumnName="TemplateGroupId" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="Identifier" ColumnName="Identifier" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spPartialParametriMapiranja" FunctionName="Q88DocumentServiceTestModel.Store.spPartialParametriMapiranja">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Q88DocumentServiceTestModel.spPartialParametriMapiranja_Result">
+                <ScalarProperty Name="TemplateDataSourceId" ColumnName="TemplateDataSourceId" />
+                <ScalarProperty Name="ParametarProcedure" ColumnName="ParametarProcedure" />
+                <ScalarProperty Name="ParametarPredloska" ColumnName="ParametarPredloska" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spPartialParametriPredloska" FunctionName="Q88DocumentServiceTestModel.Store.spPartialParametriPredloska">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Q88DocumentServiceTestModel.spPartialParametriPredloska_Result">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DataType" ColumnName="DataType" />
+                <ScalarProperty Name="IsRequired" ColumnName="IsRequired" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spPartialParametriProcedure" FunctionName="Q88DocumentServiceTestModel.Store.spPartialParametriProcedure">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Q88DocumentServiceTestModel.spPartialParametriProcedure_Result">
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+                <ScalarProperty Name="Opis" ColumnName="Opis" />
+                <ScalarProperty Name="Primjer" ColumnName="Primjer" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spProcedureCallSelectByProcedureName" FunctionName="Q88DocumentServiceTestModel.Store.spProcedureCallSelectByProcedureName">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Q88DocumentServiceTestModel.spProcedureCallSelectByProcedureName_Result">
+                <ScalarProperty Name="RBr" ColumnName="RBr" />
+                <ScalarProperty Name="ProcedureCallId" ColumnName="ProcedureCallId" />
+                <ScalarProperty Name="SchemaName" ColumnName="SchemaName" />
+                <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+                <ScalarProperty Name="ProcedureName" ColumnName="ProcedureName" />
+                <ScalarProperty Name="ConnectionStringName" ColumnName="ConnectionStringName" />
+                <ScalarProperty Name="DbmsType" ColumnName="DbmsType" />
+                <ScalarProperty Name="Paramaters" ColumnName="Paramaters" />
+                <ScalarProperty Name="ResultFields" ColumnName="ResultFields" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="CSDbmsType" ColumnName="CSDbmsType" />
+                <ScalarProperty Name="ResultFieldsText" ColumnName="ResultFieldsText" />
+                <ScalarProperty Name="Ukupno" ColumnName="Ukupno" />
+                <ScalarProperty Name="ddlProcedureName" ColumnName="ddlProcedureName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spSinkronizirajPredlozakSaStorom" FunctionName="Q88DocumentServiceTestModel.Store.spSinkronizirajPredlozakSaStorom" />
+          <FunctionImportMapping FunctionImportName="TemplateDataSourceDelete" FunctionName="Q88DocumentServiceTestModel.Store.TemplateDataSourceDelete" />
+          <FunctionImportMapping FunctionImportName="TemplateDataSourceDeleteByTemplateID" FunctionName="Q88DocumentServiceTestModel.Store.TemplateDataSourceDeleteByTemplateID" />
+          <FunctionImportMapping FunctionImportName="TemplateDataSourceSelect" FunctionName="Q88DocumentServiceTestModel.Store.TemplateDataSourceSelect">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Q88DocumentServiceTestModel.TemplateDataSourceSelect_Result">
+                <ScalarProperty Name="TemplateDataSourceId" ColumnName="TemplateDataSourceId" />
+                <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
+                <ScalarProperty Name="ProcedureCallId" ColumnName="ProcedureCallId" />
+                <ScalarProperty Name="TemplateFields" ColumnName="TemplateFields" />
+                <ScalarProperty Name="ParamaterMappings" ColumnName="ParamaterMappings" />
+                <ScalarProperty Name="FieldsMappings" ColumnName="FieldsMappings" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="TemplateDataSourceUpsert" FunctionName="Q88DocumentServiceTestModel.Store.TemplateDataSourceUpsert" />
+          <FunctionImportMapping FunctionImportName="TemplateDelete" FunctionName="Q88DocumentServiceTestModel.Store.TemplateDelete" />
+          <FunctionImportMapping FunctionImportName="TemplateGroupDelete" FunctionName="Q88DocumentServiceTestModel.Store.TemplateGroupDelete" />
+          <FunctionImportMapping FunctionImportName="TemplateGroupHierarchySelect" FunctionName="Q88DocumentServiceTestModel.Store.TemplateGroupHierarchySelect">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Q88DocumentServiceTestModel.TemplateGroupHierarchySelect_Result">
+                <ScalarProperty Name="TemplateGroupId" ColumnName="TemplateGroupId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ParentGroupId" ColumnName="ParentGroupId" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="TemplateGroups_punjenje_podacima" FunctionName="Q88DocumentServiceTestModel.Store.TemplateGroups_punjenje_podacima" />
+          <FunctionImportMapping FunctionImportName="TemplateGroupSelect" FunctionName="Q88DocumentServiceTestModel.Store.TemplateGroupSelect">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Q88DocumentServiceTestModel.TemplateGroupSelect_Result">
+                <ScalarProperty Name="TemplateGroupId" ColumnName="TemplateGroupId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ParentGroupId" ColumnName="ParentGroupId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="TemplateGroupUpsert" FunctionName="Q88DocumentServiceTestModel.Store.TemplateGroupUpsert" />
+          <FunctionImportMapping FunctionImportName="TemplateSelect" FunctionName="Q88DocumentServiceTestModel.Store.TemplateSelect">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Q88DocumentServiceTestModel.TemplateSelect_Result">
+                <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Identifier" ColumnName="Identifier" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="TemplateGroupId" ColumnName="TemplateGroupId" />
+                <ScalarProperty Name="Paramaters" ColumnName="Paramaters" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="ParentGroupId" ColumnName="ParentGroupId" />
+                <ScalarProperty Name="TemplateDataSourceId" ColumnName="TemplateDataSourceId" />
+                <ScalarProperty Name="ProcedureCallId" ColumnName="ProcedureCallId" />
+                <ScalarProperty Name="TemplateFields" ColumnName="TemplateFields" />
+                <ScalarProperty Name="ParamaterMappings" ColumnName="ParamaterMappings" />
+                <ScalarProperty Name="FieldsMappings" ColumnName="FieldsMappings" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="TemplateSelectByID" FunctionName="Q88DocumentServiceTestModel.Store.TemplateSelectByID" />
+          <FunctionImportMapping FunctionImportName="TemplateSelectByIdentifier" FunctionName="Q88DocumentServiceTestModel.Store.TemplateSelectByIdentifier" />
+          <FunctionImportMapping FunctionImportName="TemplateUpload" FunctionName="Q88DocumentServiceTestModel.Store.TemplateUpload" />
+          <FunctionImportMapping FunctionImportName="TemplateUploadFolder" FunctionName="Q88DocumentServiceTestModel.Store.TemplateUploadFolder">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Q88DocumentServiceTestModel.TemplateUploadFolder_Result">
+                <ScalarProperty Name="Putanja" ColumnName="Putanja" />
+                <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="TemplateUpsert" FunctionName="Q88DocumentServiceTestModel.Store.TemplateUpsert" />
+          <FunctionImportMapping FunctionImportName="spPopisParametara" FunctionName="Q88DocumentServiceTestModel.Store.spPopisParametara">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Q88DocumentServiceTestModel.spPopisParametara_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spPopisPolja" FunctionName="Q88DocumentServiceTestModel.Store.spPopisPolja">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Q88DocumentServiceTestModel.spPopisPolja_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

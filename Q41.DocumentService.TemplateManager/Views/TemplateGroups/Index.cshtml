@@ -1,0 +1,86 @@
+﻿@model IEnumerable<Q41.DocumentService.TemplateManager.Models.TemplateGroups>
+
+@{
+    ViewBag.Title = "Grupe";
+}
+@Html.Hidden("RedirectTo", Url.Action("Index", "TemplateGroups"))
+<h2>Grupe</h2>
+<hr />
+<p>
+    @Html.ActionLink("Kreiraj novu grupu", "Create")
+</p>
+<table>
+    <tr>
+        
+        <th>
+            ID
+        </th>
+        <th>
+            Naziv
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.ParentGroupId)
+        </th>*@
+        <th></th><th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TemplateGroupId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.ParentGroupId)
+        </td>*@
+        <td>
+            <a href="@(Url.Content("~/TemplateGroups/Edit/") + item.TemplateGroupId.ToString())" class="btn btn-default btn-sm  gumb-brisanje-apis">UREDI</a>
+        </td>
+        <td>
+            <button type="button" class="btn btn-danger btn-sm btnDelete alert " style="margin-bottom: 0px !important;" data-bb-example-key="confirm-default" data-id="@item.TemplateGroupId">OBRIŠI</button>
+        </td>
+    </tr>
+}
+
+</table>
+<br />
+<div style="color:white; ">
+    @Html.ActionLink("Povratak na listu predložaka", "Index", "Default1")
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+
+        $(document).ready(function () {
+            //$('#example').DataTable({
+            //    "language": {
+            //        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Croatian.json"
+            //    }
+            //});
+
+        });
+        $(document).on("click", ".alert", function (e) {
+            var button = $(this);
+            var recordToDelete = $(this).attr("data-id");
+            var url = $("#RedirectTo").val();
+            bootbox.confirm("Da li ste sigurni da želite obrisati grupu ?", function (result) {
+                if (result) {
+                    //$.post("/Procedura/DeleteConfirmed", { id: recordToDelete });
+                    //location.href = url;
+                    var url = '@Url.Action("Delete", "TemplateGroups", new { id = "__id__" })';
+                    window.location.href = url.replace('__id__', recordToDelete);
+                    console.log("Obrisana grupa!");
+                }
+                else {
+                    $.post("/TemplateGroups/Index", { id: recordToDelete });
+                    console.log("Nije obrisana grupa.");
+                }
+
+            });
+
+        });
+    </script>
+}

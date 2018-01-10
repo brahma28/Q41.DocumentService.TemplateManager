@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "PartialParametriProcedure";
+}
+
+<h2>PARAMETRI @ViewBag.nazivprocedure</h2>
+<hr />
+<table id="procedura" class="display" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Naziv</th>
+            <th>Tabela</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (KeyValuePair<string, Q41.DocumentService.TemplateManager.Models.ProcedureResultField> item in ViewBag.spFields)
+        {
+            <tr>
+                <td>
+                    @{ if (@item.Key.IndexOf(".") == -1)
+                     { @item.Key }
+                     else
+                     { @item.Key.Substring(7, @item.Key.Length - 7) }
+                    }
+                </td>
+                <td>
+                    @{ if (@item.Key.IndexOf(".") == -1)
+                     { @String.Empty }
+                     else
+                     { @item.Key.Substring(0, 6) }
+                    }
+                </td>
+                <td>
+                    <input type="radio" name="poljeProcedure" value="" style="width:10px;" id="@item.Key">
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,94 @@
+﻿@model IEnumerable<Q41.DocumentService.TemplateManager.Models.TemplateDataSources>
+
+@{
+    ViewBag.Title = "Mapiranja";
+}
+
+<h2><div style="font-family:'Segoe UI'; font-weight:bold; color:white;  ">MAPIRANJA</div></h2>
+<div style="width:100%;  text-align:right; visibility:hidden; ">
+    <a href="@(Url.Content("~/Mapiranje/Create/"))" class="btn btn-default btn-sm  ">Dodaj novo mapiranje</a>
+</div>
+<br />
+@Html.Hidden("RedirectTo", Url.Action("Index", "Mapiranje"))
+
+
+<div id="l1" class="tabela-apis">
+    <div class="pod-tabela-apis">
+        <table id="example" class="display" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>
+                        ID
+                    </th>
+                    <th>
+                        Predložak
+                    </th>
+                    <th>
+                        Procedura
+                    </th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Q41.DocumentService.TemplateManager.Models.vwMapiranja item in ViewBag.mapiranja)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TemplateDataSourceId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Predlozak)
+                        </td>
+                        <td>@Html.DisplayFor(modelItem => item.Procedura)</td>
+                        <td>
+                            <a href="@(Url.Content("~/Mapiranje/Edit/") + item.TemplateDataSourceId.ToString())" class="btn btn-default btn-sm  gumb-brisanje-apis">UREDI</a>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger btn-sm btnDelete alert" style="margin-bottom: 0px !important;" data-bb-example-key="confirm-default" data-id="@item.TemplateDataSourceId">OBRIŠI</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+@section scripts{
+@Scripts.Render("~/bundles/jqueryval")
+    <script>
+
+        $(document).ready(function () {
+            $('#example').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Croatian.json"
+                }
+            });
+
+        });
+        $(document).on("click", ".alert", function (e) {
+            var button = $(this);
+            var recordToDelete = $(this).attr("data-id");
+            var url = $("#RedirectTo").val();
+            bootbox.confirm("Da li ste sigurni da želite obrisati mapiranje?", function (result) {
+                if (result) {
+                    //alert(recordToDelete);
+                    //$.post("/Procedura/DeleteConfirmed", { id: recordToDelete });
+                    //location.href = url;
+
+                    var url = '@Url.Action("DeleteConfirmed", "Mapiranje", new { id = "__id__" })';
+                    window.location.href = url.replace('__id__', recordToDelete);
+
+                    console.log("Obrisanoooooo!");
+                }
+                else {
+                    $.post("/Mapiranje/Index", { id: recordToDelete });
+                    console.log("Nije obrisano...");
+                }
+
+            });
+
+        });
+    </script>
+}

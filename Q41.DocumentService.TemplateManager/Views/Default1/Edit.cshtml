@@ -1,0 +1,139 @@
+﻿@model Q41.DocumentService.TemplateManager.Models.Templates
+
+@{
+    ViewBag.Title = "UREĐIVANJE PREDLOŠKA";
+}
+
+<h2><div style="color:white; ">UREĐIVANJE PREDLOŠKA @ViewBag.poruka</div></h2>
+<br />
+@Html.Hidden("RedirectTo", Url.Action("Edit", "Default1"))
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.TemplateId)
+    @Html.HiddenFor(model => model.Paramaters)
+    <div id="l1" class="tabela-apis-bijela">
+        <div class="pod-tabela-apis-bijela">
+            <fieldset>
+                <legend>Templates</legend>
+
+                <div class="editor-label">
+                    Naziv
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.Name, new { style = "width:500px !important; " })
+                    @Html.ValidationMessageFor(model => model.Name)
+                </div>
+                <div class="editor-label">
+                    Grupa
+                </div>
+                <div class="editor-field">
+                    @Html.DropDownList("TemplateGroupId", String.Empty)
+                    @Html.ValidationMessageFor(model => model.TemplateGroupId)
+                </div>
+                <div class="editor-label">
+                    Identifikator
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.Identifier)
+                    @Html.ValidationMessageFor(model => model.Identifier)
+                </div>
+
+                <div class="editor-label">
+                    Putanja
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.Path)
+                    @Html.ValidationMessageFor(model => model.Path)
+                </div>
+
+
+
+                <div class="editor-label">
+                    Parametri
+                </div>
+                <br />
+                <div>
+                    <div id="l1" class="tabela-apis">
+                        <div class="pod-tabela-apis">
+                            <table id="example" class="display" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <td></td>
+                                        <td>Naziv</td>
+                                        @*<td>IsAutoField</td>*@
+                                        <td></td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{int counter = 0; }
+                                    @foreach (KeyValuePair<string, Q41.DocumentService.TemplateManager.Models.TemplateField> item in ViewBag.MergeFields)
+                                    {
+                                        counter++; 
+                                        <tr>
+                                            <td>@counter.ToString(). </td>
+                                            <td>@item.Key</td>
+                                            @*<td>@item.Value</td>*@
+                                            <td>
+                                                <button type="button" class="btn btn-danger btn-sm btnDelete alert " style="margin-bottom: 0px !important;" data-bb-example-key="confirm-default" data-id="@item.Key">OBRIŠI</button>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div style="width:100%;  text-align:right; ">
+                    <input class="btn btn-primary btn-sm " type="submit" value="SPREMI" />
+                </div>
+            </fieldset>
+
+        </div>
+    </div>
+ 
+}   
+    <div style="color:white; ">
+        @Html.ActionLink("Povratak na listu", "Index")
+    </div>
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Croatian.json"
+                }
+            });
+
+        });
+
+        $(document).on("click", ".alert", function (e) {
+            var button = $(this);
+            var recordToDelete = $(this).attr("data-id");
+            var url = $("#RedirectTo").val();
+            bootbox.confirm("Da li ste sigurni da želite obrisati 'merge field' predloška?", function (result) {
+                if (result) {
+                    //$.post("/Procedura/DeleteConfirmed", { id: recordToDelete });
+                    //location.href = url;
+                    var url = '@Url.Action("Delete", "Default1", new { id = "__id__" })';
+                    window.location.href = url.replace('__id__', recordToDelete);
+                    console.log("Obrisan parametar predloška!");
+                }
+                else {
+                    $.post("/Default1/Index", { id: recordToDelete });
+                    console.log("Nije obrisan paramear predloška.");
+                }
+
+            });
+
+        });
+
+    </script>
+}

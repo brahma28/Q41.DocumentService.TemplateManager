@@ -1,0 +1,246 @@
+﻿@model Q41.DocumentService.TemplateManager.Models.ProcedureCalls
+
+@{
+    ViewBag.Title = "DODAVANJE PROCEDURE";
+}
+@Html.Hidden("RedirectTo", Url.Action("Create", "Procedura"))
+
+@using (Html.BeginForm("Create",
+                            "Procedura",
+                            FormMethod.Post,
+                            new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true) 
+    <div id="l1" class="tabela-apis">
+        <div class="pod-tabela-apis">
+            <h2>DODAVANJE PROCEDURE - RECOVER IZLAZNIH PARAMETARA</h2>
+            <br />
+            <div id="prozorporuke" style="color:#f8ac59; font-size:18px;  ">@ViewBag.poruka</div>
+            <br />
+            <fieldset>
+                <legend>ProcedureCalls</legend>
+
+                @Html.HiddenFor(model => model.ProcedureCallId, null)
+                <input type="hidden" name="ResultFields" id="ResultFields" value="@ViewBag.ResultFields" />
+                <input type="hidden" name="Paramaters" id="Paramaters" value="@ViewBag.Paramaters" />
+                <div class="editor-label">
+                    Baza
+                </div>
+                <div class="editor-field">
+                    @Html.DropDownListFor(model => model.ConnectionStringName, new SelectList(ViewBag.ConnectionStringName, "Value", "Value"))&nbsp;
+                    @*@Html.DropDownList(
+                        "ConnectionStringName",
+                        String.Empty
+                    )
+                    @Html.ValidationMessageFor(model => model.ConnectionStringName)*@
+                </div>
+                <br />
+                <div class="editor-label">
+                    Vrsta baze podataka
+                </div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="editor-field">
+                                            @Html.DropDownList(
+                                    "DbmsTypeID",
+                                new List<SelectListItem>
+                                {
+                                    new SelectListItem { Text = "Nepoznato",  Value = "4"},
+                                    new SelectListItem { Text = "DB2zOS", Value = "1" },
+                                    new SelectListItem { Text = "Oracle",  Value = "2" },
+                                    new SelectListItem { Text = "SqlServer  ", Value = "3", Selected=true },
+
+                                },
+                                new { @class = "textbox", @style = "width:300px" })
+                            </div>
+                        </td>
+                        <td><div name="bazatip" style="color:#f8ac59; ">u ovoj verziji samo MSSQL Server</div></td>
+                    </tr>
+                </table>
+                <br />
+                <table style="width:100% !important; ">
+                    <tr>
+                        <td>
+                            <div>
+                                Naziv paketa (oracle)
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                Naziv sheme
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                Naziv procedure
+                            </div>
+                        </td>
+                        <td>
+                            <div style="font-size:10px; ">
+                                @*Complex&nbsp;Out*@
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="editor-field">
+                                @Html.EditorFor(model => model.PackageName)
+                                @Html.ValidationMessageFor(model => model.PackageName)
+                            </div>
+                        </td>
+                        <td>
+                            <div class="editor-field">
+                                @Html.EditorFor(model => model.SchemaName, new { style = "width:50px" })
+                                @Html.ValidationMessageFor(model => model.SchemaName)
+                            </div>
+                        </td>
+                        <td>
+                            <div class="editor-field">
+                                @Html.EditorFor(model => model.ProcedureName, new { style = "width:250px" })
+                                @Html.ValidationMessageFor(model => model.ProcedureName)
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                @*@Html.CheckBoxFor(m => m.Complex, new { id = "cbCF"})*@
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <div id="ulazniniz" name="ulazniniz" class="sakrij">
+                    <table style="width:100% !important; ">
+                        <tr>
+                            <td>
+                                <div style="font-size:10px; ">
+                                    Ulazni&nbsp;niz&nbsp;vatijabli (odvojeni&nbsp;zarezom)
+                                </div>
+                            </td>
+                            <td>
+                                @*<input type="text" name="ulazniparametri" style="width:600px; height:30px; ">*@
+                                @Html.EditorFor(model => model.ProcedureParameters, new { style = "width:600px" })
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <hr />
+                <div style="width:100%;  text-align:right; ">
+                    <input class="btn btn-primary buttons-right " type="submit" value="DOHVATI DEFINICIJU PROCEDURE" name="Command" />
+                </div>
+                <br />
+                <div id="l1" class="tabela-apis-bijela">
+                    <div class="pod-tabela-apis-bijela">
+                        <table id="procedura" class="display" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <td></td>
+                                    <td>Naziv</td>
+                                    <td>Tabela</td>
+                                    <td></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{ int counter = 0; }
+                                @foreach (KeyValuePair<string, Q41.DocumentService.TemplateManager.Models.ProcedureResultField> item in ViewBag.spFields)
+                        {
+                            counter++;
+                                    <tr>
+                                        <td>@counter.ToString(). </td>
+                                        <td>
+                                            @{ if (@item.Key.IndexOf(".") == -1)
+                                             { @item.Key }
+                                             else
+                                             { @item.Key.Substring(7, @item.Key.Length - 7) }
+                                            }
+                                        </td>
+                                        <td>
+                                            @{ if (@item.Key.IndexOf(".") == -1)
+                                             { @String.Empty }
+                                             else
+                                             { @item.Key.Substring(0, 6) }
+                                            }
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-danger btn-sm btnDelete alert" style="margin-bottom: 0px !important;" data-bb-example-key="confirm-default" data-id="@item.Key">OBRIŠI PARAMETAR</button>
+                                        </td>
+                                    </tr>
+                        }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <br />
+
+
+
+
+                <hr />
+                <div style="width:100%;  text-align:right; ">
+                    <input id="SPREMI" class="btn btn-primary btn-sm " type="submit" value="SPREMI" name="Command" />
+                </div>
+
+            </fieldset>
+            
+        </div>
+    </div>
+}
+    <div style="color:white; ">
+        @Html.ActionLink("Povratak na listu", "Index")
+    </div>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+        <script>
+            $(document).ready(function () {
+                $('#ConnectionStringName').addClass("mod2");
+
+                $('#procedura').DataTable({
+                    "language": {
+                        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Croatian.json"
+                    }
+                });
+                $('#SchemaName').val('dbo');
+                $('#SchemaName').text('dbo');
+                $('#SchemaName').html('dbo');
+                $('#PackageName').addClass('foo').removeClass('text-box').removeClass('single-line');
+                $('#SchemaName').addClass('foo').removeClass('text-box').removeClass('single-line');
+                $('#ProcedureName').addClass('foo2').removeClass('text-box').removeClass('single-line');
+                //$('#Paramaters').addClass('foo2').removeClass('text-box').removeClass('single-line');
+                $('#NewCursorName').addClass('foo').removeClass('text-box').removeClass('single-line');
+                $('#ProcedureParameters').addClass('foo3').removeClass('text-box').removeClass('single-line');
+                $("#DbmsTypeID").attr("disabled", true);
+                $("#cbCF").click(function () {
+                    if ($("#cbCF").prop("checked"))
+                    {
+                        $('#ulazniniz').addClass('prikazi').removeClass('sakrij');                    
+                    }
+                    else
+                    {
+                        $('#ulazniniz').addClass('sakrij').removeClass('prikazi');
+                    }
+                });
+            });
+            $(document).on("click", ".alert", function (e) {
+                var button = $(this);
+                var recordToDelete = $(this).attr("data-id");
+                var storaId = $("#ProcedureCallId").val();
+                var kombinacija = storaId + "___" + recordToDelete;
+                var url = $("#RedirectTo").val();
+                bootbox.confirm("Da li ste sigurni da želite obrisati izlazni parametar procedure?", function (result) {
+                    if (result) {
+                        var url = '@Url.Action("DeleteIzlazniParametarProcedure", "Procedura", new { parametri = "__parametri__" })';
+                        url = url.replace('__parametri__', kombinacija);
+                        window.location.href = url;
+                        //window.location.href = "/Procedura/DeleteIzlazniParametarProcedure/procId=" + storaId + "&parametar=" + recordToDelete
+                        console.log("Obrisan izlazni parametar procedure!");
+                    }
+                    else {
+                        $.post("/Procedura/Edit", { id: recordToDelete });
+                        console.log("Nije obrisan izlazni paramear procedure.");
+                    }
+                });
+            });
+        </script>
+    }
+

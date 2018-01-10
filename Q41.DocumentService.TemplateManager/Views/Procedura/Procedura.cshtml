@@ -1,0 +1,93 @@
+﻿@model IEnumerable<Q41.DocumentService.TemplateManager.Models.vwProcedureCalls>
+
+@{
+    ViewBag.Title = "Procedura";
+}
+
+<h2>Procedura</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProcedureCallId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SchemaName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PackageName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProcedureName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ConnectionStringName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DbmsType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Paramaters)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ResultFields)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Value)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CSDbmsType)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProcedureCallId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SchemaName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PackageName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProcedureName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ConnectionStringName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DbmsType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Paramaters)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ResultFields)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Value)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CSDbmsType)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

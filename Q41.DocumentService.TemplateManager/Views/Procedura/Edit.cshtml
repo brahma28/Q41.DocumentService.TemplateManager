@@ -1,0 +1,267 @@
+﻿@model Q41.DocumentService.TemplateManager.Models.ProcedureCalls
+
+@{
+    ViewBag.Title = "UREĐIVANJE IZLAZNIH POLJA PROCEDURE";
+}
+@Html.Hidden("RedirectTo", Url.Action("Edit", "Procedura"))
+
+@using (Html.BeginForm("Edit",
+                            "Procedura",
+                            FormMethod.Post,
+                            new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div id="l1" class="tabela-apis">
+        <div class="pod-tabela-apis">
+            <h2>UREĐIVANJE IZLAZNIH POLJA PROCEDURE </h2>
+            <br />
+                <div name="prozorporuke" style="color:#f8ac59; font-size:18px;  ">@ViewBag.poruka</div>
+            <br />
+            <fieldset>
+                <legend>ProcedureCalls</legend>
+                @Html.HiddenFor(model => model.ProcedureCallId)
+                @Html.HiddenFor(model => model.ResultFields)
+                @*@Html.HiddenFor(model => model.ConnectionStringName)*@                
+                @Html.HiddenFor(model => model.DbmsType)
+
+                    <div id="l1" class="tabela-apis">
+                        <div class="pod-tabela-apis">
+                            <div id="parent-selector" name="parent-selector">
+                                <div class="editor-label bojaslova">
+                                    Baza
+                                </div>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <div class="editor-field">
+                                                @Html.DropDownListFor(model => model.ConnectionStringName, new SelectList(ViewBag.ConnectionStringName, "Value", "Value"))&nbsp;
+                                                @*@Html.DropDownList("ConnectionStringName", new SelectList(ViewBag.ConnectionStringName, "Value", "Name"))*@
+
+                                            </div>                                    
+                                        </td>
+                                        <td>
+                                             <div name="bazaporuka" style="color:#f8ac59; ">@ViewBag.testSpajanjaNaBazu</div>                                   
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <br />
+                                <div class="editor-label bojaslova">
+                                    Vrsta baze podataka
+                                </div>
+                                @*@Html.DropDownListFor(model => model.DbmsType, Enum.GetNames(typeof(Q41.DocumentService.TemplateManager.Models.Enumerations)).Select(e => new SelectListItem { Text = e }))*@
+                                <div class="editor-field">
+                                    @Html.DropDownList(
+                                "DbmsTypeID",
+                                new List<SelectListItem>
+                                {
+                                    new SelectListItem { Text = "Nepoznato",  Value = "4"},
+                                    new SelectListItem { Text = "DB2zOS", Value = "1" },
+                                    new SelectListItem { Text = "Oracle",  Value = "2" },
+                                    new SelectListItem { Text = "SqlServer  ", Value = "3", Selected=true },
+                                },
+                                new { @class = "textbox", @style = "width:300px !important; " })
+                                </div>
+                                <br />
+                                <table style="width:100% !important; " class="bojaslova">
+                                    <thead>
+                                        <tr>
+                                            <td>
+                                                <div>
+                                                    Naziv paketa (Oracle baze)
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div>
+                                                    Naziv sheme
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div>
+                                                    Naziv procedure
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="editor-field">
+                                                    @Html.EditorFor(model => model.PackageName)
+                                                    @Html.ValidationMessageFor(model => model.PackageName)
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="editor-field">
+                                                    @Html.EditorFor(model => model.SchemaName, new { style = "width:50px" })
+                                                    @Html.ValidationMessageFor(model => model.SchemaName)
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="editor-field">
+                                                    @Html.EditorFor(model => model.ProcedureName, new { style = "width:250px" })
+                                                    @Html.ValidationMessageFor(model => model.ProcedureName)
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <table style="width:100%;  text-align:right; ">
+                        <tr>
+                            <td>
+                                <div style="width:100%;  text-align:left; font-size:16px; font-family: Arial, Helvetica, sans-serif">
+                                    IZLAZNA POLJA PROCEDURE
+                                </div>
+                            </td>
+                            <td>
+                                <div style="width:100%;  text-align:right; ">
+                                    @*<input class="btn btn-primary buttons-right " type="submit" value="DOHVATI PONOVO POLJA PROCEDURE" name="Command" />*@
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <br />
+                    <div id="l1" class="tabela-apis-bijela">
+                        <div class="pod-tabela-apis-bijela">
+                            <table id="procedura" class="display" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <td></td>
+                                        <td>Naziv</td>
+                                        <td>Tabela</td>
+                                        <td></td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{ int counter = 0; }
+                                    @foreach (KeyValuePair<string, Q41.DocumentService.TemplateManager.Models.ProcedureResultField> item in ViewBag.spFields)
+                                    {
+                                        counter++;
+                                        <tr>
+                                            <td>@counter.ToString(). </td>
+                                            <td>                                               
+                                                @{ if (@item.Key.IndexOf(".") == -1)
+                                                 { @item.Key }
+                                                   else
+                                                   { @item.Key.Substring(7, @item.Key.Length - 7) }
+                                                }
+                                            </td>
+                                            <td>
+                                                @*@item.Value*@
+                                                @{ if (@item.Key.IndexOf(".") == -1) { @String.Empty }
+                                                   else { @item.Key.Substring(0, 6) }
+                                                 }
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-danger btn-sm btnDelete alert" style="margin-bottom: 0px !important;" data-bb-example-key="confirm-default" data-id="@item.Key">OBRIŠI PARAMETAR</button>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <br />
+                    <div style="width:100%;  text-align:right; ">
+                        <table style="width:100%;  ">
+                            <tr>
+                                <td width="10%;">
+                                    Tabela:
+                                </td>
+                                <td width="10%;">
+                                    @Html.EditorFor(model => model.NewCursorName)
+                                </td>
+                                <td width="20%;">
+                                    Polje:
+                                </td>
+                                <td width="40%;">
+                                    @Html.EditorFor(model => model.Paramaters)
+                                </td>
+                                <td width="20%;">
+                                    <input id="dodajpolje" class="btn btn-primary btn-sm " type="submit" value="DODAJ NOVO POLJE" name="Command" />
+                                </td>
+                            </tr>
+                        </table>
+
+
+                    </div>
+                    @*<div class="editor-label">
+                Izlazni parametri
+            </div>
+            <br />
+            <div>
+                @ViewBag.detaljiprocedure.ResultFieldsText
+            </div>*@
+
+</fieldset>
+
+
+        </div>
+    </div>
+
+}
+<br />
+            <div style="color:white; ">
+    @Html.ActionLink("Povratak na listu", "Index")
+</div>
+
+@section Scripts {
+@Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+            $(document).ready(function () {
+                $('#procedura').DataTable({
+                    "language": {
+                        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Croatian.json"
+                    }
+                });
+                $('#PackageName').addClass('foo').removeClass('text-box').removeClass('single-line');
+                $('#SchemaName').addClass('foo').removeClass('text-box').removeClass('single-line');
+                $('#ProcedureName').addClass('foo2').removeClass('text-box').removeClass('single-line');
+                $('#Paramaters').addClass('foo2').removeClass('text-box').removeClass('single-line');
+                $('#NewCursorName').addClass('foo').removeClass('text-box').removeClass('single-line');
+
+                //$('#ConnectionStringName').val(model.ConnectionStringName);
+                //$('#ConnectionStringName').text(model.ConnectionStringName);
+                //$('#ConnectionStringName').find(model.ConnectionStringName).attr('selected', 'selected');
+                @*selectByTex('@Model.ConnectionStringName');*@
+                //alert('@Model.ConnectionStringName');
+
+                $("#parent-selector :input").attr("disabled", true);
+            });
+
+            function selectByText(txt) {
+                $('#ConnectionStringName option')
+                .filter(function () { return $.trim( $(this).text())})
+                .attr('selected',true);
+            };
+
+
+            $(document).on("click", ".alert", function (e) {
+                var button = $(this);
+                var recordToDelete = $(this).attr("data-id");
+                var storaId = $("#ProcedureCallId").val();
+                var kombinacija = storaId + "___" + recordToDelete;
+                var url = $("#RedirectTo").val();
+                bootbox.confirm("Da li ste sigurni da želite obrisati izlazni parametar procedure?", function (result) {
+                    if (result) {
+                        var url = '@Url.Action("DeleteIzlazniParametarProcedure", "Procedura", new { parametri = "__parametri__" })';
+                        url = url.replace('__parametri__', kombinacija);
+                        window.location.href = url;
+                        //window.location.href = "/Procedura/DeleteIzlazniParametarProcedure/procId=" + storaId + "&parametar=" + recordToDelete
+                        console.log("Obrisan izlazni parametar procedure!");
+                    }
+                    else {
+                        $.post("/Procedura/Edit", { id: recordToDelete });
+                        console.log("Nije obrisan izlazni paramear procedure.");
+                    }
+                });
+            });
+    </script>
+
+}

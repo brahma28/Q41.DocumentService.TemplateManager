@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "PartialParametriPredloska";
+}
+
+<h2>PARAMETRI @ViewBag.nazivpredloska</h2>
+<hr />
+
+<table id="predlozak" class="display" cellspacing="0">
+    <thead>
+        <tr>
+            <td></td>
+            <td>Naziv</td>
+            @*<td>IsAutoField</td>*@
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        @{int counter = 0; }
+        @foreach (KeyValuePair<string, Q41.DocumentService.TemplateManager.Models.TemplateField> item in ViewBag.MergeFields)
+        {
+            counter++;
+            <tr>
+                <td>@counter.ToString(). </td>
+                <td>@item.Key</td>
+                @*<td>@item.Value</td>*@
+                <td>
+                    @*<button type="button" class="btn btn-danger btn-sm btnDelete alert " style="margin-bottom: 0px !important;" data-bb-example-key="confirm-default" data-id="@item.Key">OBRIŠI</button>*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

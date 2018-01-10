@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "PartialParametriPredloska";
+}
+
+<h2>PARAMETRI @ViewBag.nazivpredloska</h2>
+<hr />
+<table id="predlozak" class="display" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Naziv</th>
+            <th>Opis</th>
+            <th>Primj.</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Q41.DocumentService.TemplateManager.Models.TemplateParameter item in ViewBag.MergeFields)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Description</td>
+                <td>@item.Example</td>
+                <td>
+                    <input type="radio" name="poljePredloska" value="" style="width:10px; " id="@item.Name">
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

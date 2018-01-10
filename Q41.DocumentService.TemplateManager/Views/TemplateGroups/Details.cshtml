@@ -1,0 +1,36 @@
+﻿@model Q41.DocumentService.TemplateManager.Models.TemplateGroups
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>TemplateGroups</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TemplateGroupId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TemplateGroupId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ParentGroupId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ParentGroupId)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

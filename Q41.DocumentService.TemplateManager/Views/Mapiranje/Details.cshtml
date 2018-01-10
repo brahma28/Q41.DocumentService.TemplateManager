@@ -1,0 +1,71 @@
+﻿@model Q41.DocumentService.TemplateManager.Models.TemplateDataSources
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>TemplateDataSources</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TemplateDataSourceId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TemplateDataSourceId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Templates.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Templates.Name)
+    </div>
+
+    @*<div class="display-label">
+         @Html.DisplayNameFor(model => model.ProcedureCalls.SchemaName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ProcedureCalls.SchemaName)
+    </div>*@
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TemplateFields)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TemplateFields)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ParamaterMappings)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ParamaterMappings)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.FieldsMappings)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FieldsMappings)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Povratak na listu", "Index")
+</p>
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+
+        $(document).ready(function () {
+            $('#example').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Croatian.json"
+                }
+            });
+
+        });
+    </script>
+}

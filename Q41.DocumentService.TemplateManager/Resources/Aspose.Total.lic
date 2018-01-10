@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<License>
+  <Data>
+    <LicensedTo>APIS IT</LicensedTo>
+    <LicenseType>Developer OEM</LicenseType>
+    <LicenseNote>Limited to 1 developer.</LicenseNote>
+    <OrderID>130212023457</OrderID>
+    <OEM>This is a redistributable license</OEM>
+    <Products>
+      <Product>Aspose.Total</Product>
+    </Products>
+    <EditionType>Enterprise</EditionType>
+    <SerialNumber>49ccb8c5-91df-4363-9616-98387128ac21</SerialNumber>
+    <SubscriptionExpiry>20140212</SubscriptionExpiry>
+    <LicenseVersion>2.2</LicenseVersion>
+  </Data>
+  <Signature>kWWYIJjyPK9cS7N5rBrzXMGA83lYN/n7OfVtIqSHoiy0xQ/KOQbON6guEEgzjLDd6DRiD4FuUAE09Y9klzLI3EXmOZbXNgnbhzKUDq9XUlhkuJzf5iA0l8EMhMaeTCwRsTqmbasXLbv0i0FsXaWJkEwMQ1zYMDkPCjllaHqQqAI=</Signature>
+</License>

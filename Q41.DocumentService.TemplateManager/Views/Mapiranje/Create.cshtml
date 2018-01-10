@@ -1,0 +1,88 @@
+﻿@model Q41.DocumentService.TemplateManager.Models.TemplateDataSources
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>TemplateDataSources</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TemplateDataSourceId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TemplateDataSourceId)
+            @Html.ValidationMessageFor(model => model.TemplateDataSourceId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TemplateId, "Templates")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("TemplateId", String.Empty)
+            @Html.ValidationMessageFor(model => model.TemplateId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ProcedureCallId, "ProcedureCalls")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("ProcedureCallId", String.Empty)
+            @Html.ValidationMessageFor(model => model.ProcedureCallId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TemplateFields)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TemplateFields)
+            @Html.ValidationMessageFor(model => model.TemplateFields)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ParamaterMappings)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ParamaterMappings)
+            @Html.ValidationMessageFor(model => model.ParamaterMappings)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FieldsMappings)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.FieldsMappings)
+            @Html.ValidationMessageFor(model => model.FieldsMappings)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div style="color:white; ">
+    @Html.ActionLink("Povratak na listu", "Index")
+</div>
+
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+
+        $(document).ready(function () {
+            $('#example').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Croatian.json"
+                }
+            });
+
+        });
+    </script>
+}

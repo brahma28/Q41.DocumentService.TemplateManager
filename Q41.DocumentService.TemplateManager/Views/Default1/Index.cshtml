@@ -1,0 +1,194 @@
+﻿@model IEnumerable<Q41.DocumentService.TemplateManager.Models.Templates>
+@*@model Q41.DocumentService.TemplateManager.Models.Templates*@
+@{
+    ViewBag.Title = "Index";
+}
+@Html.Hidden("RedirectTo", Url.Action("Index", "Predlozak"))
+<h2><div style="font-family:'Segoe UI'; font-weight:bold; color:white; ">PREDLOŠCI</div></h2>
+@using (Html.BeginForm("Index",
+                                    "Default1",
+                                    FormMethod.Post,
+                                    new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+<div style="width:100%;  text-align:right; ">
+    <a href="@(Url.Content("~/Default1/Create/"))" class="btn btn-default btn-sm  ">DODAJ NOVI PREDLOŽAK</a>
+</div>
+<br />
+<div id="l1" class="tabela-apis">
+    <div class="pod-tabela-apis">
+        <br />
+        <table style="width:100%; ">
+            <tr>
+                <td>
+                    <div style="font-size:16px; font-family:'Segoe UI regular', Tahoma, Geneva, Verdana, sans-serif; text-align:justify; ">
+                        Grupa:&nbsp;@Html.DropDownList("TemplateGroupId", new SelectList(ViewBag.grupe, "TemplateGroupId", "Name"), "SVE")&nbsp;&nbsp;&nbsp;&nbsp<input type="submit" value="DOHVATI" class="btn btn-default btn-sm  " style="font-size:12px !important; "/>
+                    </div>
+                </td>
+                <td >
+                    <div style="width:100%;  text-align:right; visibility:hidden; ">
+                        <a href="@(Url.Content("~/TemplateGroups/"))" class="btn btn-default btn-sm  gumb-brisanje-apis">UREDI GRUPE</a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+
+        <table id="example" class="display" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Naziv</th>
+                    <th>Identifikator</th>
+                    <th>Datum</th>
+                    <th>.</th>
+                    <th>.</th>
+                </tr>
+                <tr><td colspan="6"><hr /></td></tr>
+            </thead>
+
+            <tbody>
+                @foreach (Q41.DocumentService.TemplateManager.Models.vwTemplates item in ViewBag.predlosci)                
+                    {
+                    <tr>
+                        <td style="color:gray; ">
+                            @Html.DisplayFor(modelItem => item.TemplateId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Identifier)
+                        </td>
+                        <td>
+                            @*@Html.DisplayFor(modelItem => item.Created)*@
+                            @Html.TextBoxFor(modelItem => item.Created, "{0:dd-MMM-yyyy}", new { @class = "mod3", @readonly = true })
+                        </td>
+                        <td>
+                            <a href="@(Url.Content("~/Default1/Edit/") + item.TemplateId.ToString())" class="btn btn-default btn-sm  gumb-brisanje-apis">UREDI</a>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger btn-sm btnDelete alert float-e-margins btn-warning " style="margin-bottom: 0px !important;" data-bb-example-key="confirm-default" data-id="@item.TemplateId">OBRIŠI</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+}
+    
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+
+        $(document).ready(function () {
+            $('#example').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Croatian.json"
+                },
+                //"ajax": '/Default1/IndexJson'
+            });
+
+            //setInterval(function () {
+            //    table.ajax.reload();
+            //}, 30000);
+
+
+
+            //$("#TemplateGroupId").on("change", ajaxFormSubmit);
+
+            //InitOverviewDataTable();
+            //setTimeout(function () { AutoReload(); }, 30000);
+
+
+        });
+
+        function AutoReload() {
+            RefreshTable('#example', '/Default1/IndexJson');
+
+            setTimeout(function () { AutoReload(); }, 30000);
+        }
+
+        $(document).on("click", ".alert", function (e) {
+            var button = $(this);
+            var recordToDelete = $(this).attr("data-id");
+            var url = $("#RedirectTo").val();
+            bootbox.confirm("Da li ste sigurni da želite obrisati predložak?", function (result) {
+                if (result) {
+                    //$.post("/Procedura/DeleteConfirmed", { id: recordToDelete });
+                    //location.href = url;
+                    var url = '@Url.Action("Delete", "Default1", new { id = "__id__" })';
+                    window.location.href = url.replace('__id__', recordToDelete);
+                    console.log("Obrisan predložak!");
+                }
+                else {
+                    $.post("/Default1/Index", { id: recordToDelete });
+                    console.log("Nije obrisan predložak.");
+                }
+
+            });
+
+        });
+
+        var ajaxFormSubmit = function () {
+
+            var tgId = document.getElementById("TemplateGroupId").value;
+            var data = { TemplateGroupId: tgId };
+
+                $('#example').DataTable().ajax.reload();
+                /*
+                $.ajax({
+                    type: "POST",
+                    cache: false,
+                    url: "/Default1/IndexJson/",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(data),
+                    //data: data,
+                    success: function (result) {
+
+                        response = result;
+
+                        //alert("sex");                   
+                        $('#example').DataTable().ajax.reload();
+                        //var table = $('#example').DataTable();
+
+                        //table.ajax.reload(function (json) {
+                        //    $('#myInput').val(json.lastInput);
+                        //});
+                    },
+                    error: function () {
+                        alert("greska");
+                    },
+                    //complete: function () {
+                    //    $('#example').DataTable().ajax.reload();                
+                    //},
+                });
+                */
+
+            //RefreshTable('#example', '/Default1/IndexJson/', data);
+        };
+
+        function RefreshTable(tableId, urlData) {
+            $.getJSON(urlData, null, function (json) {
+                table = $(tableId).dataTable();
+                oSettings = table.fnSettings();
+
+                table.fnClearTable(this);
+
+                for (var i = 0; i < json.aaData.length; i++) {
+                    table.oApi._fnAddData(oSettings, json.aaData[i]);
+                }
+
+                oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
+                table.fnDraw();
+            });
+        }
+
+
+
+    </script>
+}

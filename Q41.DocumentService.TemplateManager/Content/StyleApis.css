@@ -1,0 +1,110 @@
+﻿.tabela-apis {
+
+    padding: 10px; 
+    width: inherit; 
+    height: inherit; 
+    position: relative; 
+    z-index: 1; -moz-box-shadow: 3px 3px 5px 6px #000; -webkit-box-shadow: 3px 3px 5px 6px #000; 
+    box-shadow: 0px 0px 20px 0px gray; 
+    border: 0px solid; 
+    border-radius: 10px; -moz-border-radius: 10px; 
+    background-color: whitesmoke;
+}
+.tabela-apis-bijela {
+
+    padding: 10px; 
+    width: inherit; 
+    height: inherit; 
+    position: relative; 
+    z-index: 1; -moz-box-shadow: 3px 3px 5px 6px #000; -webkit-box-shadow: 3px 3px 5px 6px #000; 
+    box-shadow: 0px 0px 20px 0px gray; 
+    border: 0px solid; 
+    border-radius: 10px; -moz-border-radius: 10px; 
+    background-color: #ffffff;
+}
+.pod-tabela-apis {
+     text-align:left;
+     border: 0px solid;
+}
+.pod-tabela-apis-bijela {
+     text-align:left;
+     vertical-align:bottom; 
+     border: 0px solid;
+     background-color: white; 
+
+}
+.gumb-brisanje-apis {
+    text-decoration:none;
+}
+.focus {
+    background-color: #ff00ff;
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+}
+.pageNumber {
+    padding: 2px;
+}
+#input-default-sml {
+    width:200px;
+}
+#input-default-nrm {
+    width:300px;
+}
+#input-default-big {
+    width:400px;
+}
+.mod2 {
+    width:300px;
+}
+.mod3 {
+    width:110px;
+    border:none;
+    background-color: #f5f5f5; 
+    font-size:14px; 
+}
+.btn-warning {
+    background-color: #f8ac59;
+    border-color: #f8ac59;
+    color: #FFFFFF;
+}
+.float-e-margins .btn {
+    margin-bottom: 5px;
+}
+.foo {
+    width:180px !important;
+}
+.foo2 {
+    width:400px !important;
+}
+.foo3 {
+    width:600px !important;
+}
+.bojaslova {
+    color:gray;
+}
+.prikazi {
+    display:block; 
+    visibility:visible; 
+}
+.sakrij {
+    display:none; 
+    visibility:hidden; 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

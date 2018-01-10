@@ -1,0 +1,143 @@
+﻿@model Q41.DocumentService.TemplateManager.Models.TemplateDataSources
+
+@{
+    ViewBag.Title = "Edit";
+}
+@Html.Hidden("RedirectTo", Url.Action("Index", "Mapiranje"))
+<h2><div style="color:white; ">UREĐIVANJE MAPIRANJA @ViewBag.poruka</div></h2>
+<br />
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div id="l1" class="tabela-apis">
+        <div class="pod-tabela-apis">
+            <fieldset>
+                <legend>TemplateDataSources</legend>
+
+                @Html.HiddenFor(model => model.TemplateDataSourceId)
+                @Html.HiddenFor(model => model.TemplateFields)
+                @Html.HiddenFor(model => model.ParamaterMappings)
+                @Html.HiddenFor(model => model.FieldsMappings)
+                <input type="hidden" name="TemplateId" id="TemplateId" value="@ViewBag.tmpId" />
+                <input type="hidden" name="ProcedureCallId" id="ProcedureCallId" value="@ViewBag.prcId" />
+                <div class="editor-field">
+                    <table>
+                        <tr><td>Predložak</td><td><b>@ViewBag.predlozak</b></td></tr>
+                        <tr><td>Procedura</td><td><b>@ViewBag.dbo.@ViewBag.stora</b></td></tr>
+                    </table>
+                </div>
+                <br />
+        <div id="l2" class="tabela-apis-bijela">
+            <div class="pod-tabela-apis-bijela">    
+                <div>DODAVANJE NOVE VEZE</div>           
+                <table style="width:100%;  text-align:right; ">
+                    <tr>
+                        <td><div style="font-weight:bold; font-size:15px; ">Parametar procedure (izlazni)</div></td>
+                        <td><div style="font-weight:bold; font-size:15px; ">Polja predloška (preostala, nevezana)</div></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="width:35%;">@Html.DropDownList("OneProcedureField", new SelectList(ViewBag.popisParam, "Key", "Key"))</td>
+                        @*<td style="width:35%;">@Html.DropDownList("Name", new SelectList(ViewBag.popisPolja, "Id", "Name"))</td>*@
+                        <td style="width:35%;">@Html.DropDownList("OneTemplateField", new SelectList(ViewBag.MergeFields, "Key", "Key"))</td>
+                        <td style="width:30%;">
+                            <div style="width:100%;  text-align:right; ">
+                                <input class="btn btn-primary btn-sm " type="submit" value="SPREMI" name="Command" />
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>                
+                <br />
+                        @*<h2><div style="color:#2f4050; ">LISTA PAROVA</div></h2>*@
+                        <table id="example" class="display" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Proc.parametar</th>
+                                    <th>Predložak polje</th>
+                                    @*<th>Opis</th>*@
+                                    @*<th>Primjer</th>*@
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @{int counter = 0; }
+                                @foreach (Q41.DocumentService.TemplateManager.Models.TemplateFieldBinding item in ViewBag.BindingFields)
+                                {
+                                    counter++;
+                                    <tr>
+                                        <td>
+                                            @counter.ToString().
+                                        </td>
+                                        <td>
+                                            @item.SourceName
+                                        </td>
+                                        <td>
+                                            @item.DestinationName
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-danger btn-sm btnDelete alert " style="margin-bottom: 0px !important;" data-bb-example-key="confirm-default" data-id="@item.SourceName" data-id-2="@item.DestinationName">OBRIŠI VEZU</button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+
+
+
+            </fieldset>
+        </div>
+    </div>
+    }
+
+<div style="color:white; ">
+    @Html.ActionLink("Povratak na listu", "Index")
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+
+        $(document).ready(function () {
+            $('#example').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Croatian.json"
+                }
+            });
+
+        });
+
+        $(document).on("click", ".alert", function (e) {
+            var storaId = $("#ProcedureCallId").val();
+            var templateId = $("#TemplateId").val();
+            var recordToDelete = $(this).attr("data-id");
+            var recordToDelete2 = $(this).attr("data-id-2");
+            var procParam = "";
+            var tempField = "";
+            var sve = storaId + "___" + templateId + "___" + recordToDelete + "___" + recordToDelete2;
+            var o = { storaId: storaId, templateId: templateId, recordToDelete: recordToDelete, recordToDelete2: recordToDelete2 };
+            var json = JSON.stringify(o);
+            var button = $(this);
+            var url = $("#RedirectTo").val();
+            bootbox.confirm("Da li ste sigurni da želite izbrisati vezu između parametra procedure i polja predloška?", function (result) {
+                if (result) {
+                    var url = '@Url.Action("DeleteParamaterFieldMapping", "Mapiranje", new { parametri = "__sve__" })';
+                    window.location.href = url.replace('__sve__', json);
+                    console.log("Pokidano vezanje!");
+                }
+                else {
+                    $.post("/Mapiranje/Edit", { id: recordToDelete });
+                    console.log("Nije pokidano vezanje.");
+                }
+
+            });
+
+        });
+
+    </script>
+}
+
